@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
+/* Air style reference (DESIGN.md / tokens.json), inverted to a light theme:
+   canvas = white sky, cards = haze, text = ink, headings = twilight blue. */
+@theme {
+  --color-whiteout: #ffffff;
+  --color-haze: #f5f5f5;
+  --color-ink: #1b1b1b;
+  --color-black-void: #000000;
+  --color-twilight-blue: #426188;
+  --color-signal-blue: #2b7fff;
+  --color-mute: #6b6f76;
+  --color-line: rgba(27, 27, 27, 0.12);
+
+  --font-control: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-control-compressed: var(--font-anton), "Arial Narrow", Impact, sans-serif;
+  --font-control-cursive: var(--font-caveat), "Segoe Script", cursive;
+
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-lg-2: 11px;
+  --radius-xl: 14px;
+  --radius-card: 12px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page-max-width: 1150px;
+  --nav-h: 72px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html { background: #ffffff; color: var(--color-ink); }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-control);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--color-twilight-blue); color: #fff; }
+
+/* Component classes live in the components layer so Tailwind utilities (lg:hidden, px-*, bg-*) can override them. */
+@layer components {
+.container-air { max-width: var(--page-max-width); margin-inline: auto; padding-inline: 20px; }
+
+.display {
+  font-family: var(--font-control-compressed);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.85;
+  letter-spacing: -0.01em;
+}
+.cursive { font-family: var(--font-control-cursive); font-weight: 500; padding-right: .08em; }
+
+/* Buttons - ghost or haze only, 8px radius. */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: var(--radius-lg); padding: 10px 16px;
+  font-size: 14px; font-weight: 500; line-height: 1.1;
+  border: 1px solid var(--color-ink);
+  transition: background .25s, color .25s, transform .25s;
+}
+.btn-ghost { background: transparent; color: var(--color-ink); }
+.btn-ghost:hover { background: var(--color-ink); color: #fff; }
+.btn-ink { background: var(--color-ink); color: #fff; }
+.btn-ink:hover { background: transparent; color: var(--color-ink); }
+.btn-glass { background: rgba(255,255,255,.55); backdrop-filter: blur(10px); border-color: rgba(255,255,255,.9); }
+
+.link-u { color: var(--color-signal-blue); border-bottom: 2px solid currentColor; padding-bottom: 1px; }
+
+.card-haze { background: var(--color-haze); border-radius: var(--radius-card); padding: 20px; }
+
+.pill {
+  display: inline-flex; align-items: center; border-radius: 9999px;
+  padding: 6px 14px; font-size: 13px; background: rgba(27,27,27,.06);
+}
+}
+
+/* Light sky backdrop for full-bleed atmospheric sections. */
+.sky {
+  background:
+    radial-gradient(120% 70% at 50% 110%, #ffffff 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #a9c3e0 0%, #c9dbee 45%, #e9f1f9 80%, #ffffff 100%);
+}
+.clouds { position: absolute; inset: -10% -20%; pointer-events: none; }
+.clouds span {
+  position: absolute; border-radius: 50%; background: #fff; filter: blur(40px); opacity: .75;
+  animation: drift linear infinite;
+}
+@keyframes drift { from { transform: translateX(-10vw); } to { transform: translateX(10vw); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 40s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Line-mask reveal used by the split headline. */
+.line-mask { display: block; overflow: hidden; padding-bottom: .04em; }
+.line-mask > span { display: inline-block; will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
