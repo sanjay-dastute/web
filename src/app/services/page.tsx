@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import ContactCta from "@/components/ContactCta";
 import { SectionHead } from "@/components/home/Sections";
 import { services } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Our Services | Branding, Web, Marketing & AI - Creatoos Coimbatore",
-  description: "Nine service lines under one roof: branding, logo design, web and app development, digital marketing, social media, SEO, AI search optimisation and strategy.",
-};
+export const metadata: Metadata = pageMeta("/services", "Our Services | Branding, Web, Marketing & AI - Creatoos Coimbatore", "Nine service lines under one roof: branding, logo design, web and app development, digital marketing, social media, SEO, AI search optimisation and strategy.");
 
 const paths = [
   { title: "Launching something new", steps: ["Brand strategy", "Identity & logo", "Website", "Social setup", "Local SEO"] },
@@ -27,6 +26,7 @@ const formats = [
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Services", path: "/services" }])} />
       <PageHero
         eyebrow="Services"
         title="Everything you need to be found, understood and *chosen*"

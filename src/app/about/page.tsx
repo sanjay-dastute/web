@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import PageHero from "@/components/PageHero";
 import ContactCta from "@/components/ContactCta";
 import { SectionHead } from "@/components/home/Sections";
 
-export const metadata: Metadata = {
-  title: "About Creatoos | Creative & Technology Studio in Coimbatore",
-  description: "Creatoos is a Coimbatore-based creative and technology studio building brands, digital products and marketing systems - with an AI-assisted process and human editorial control.",
-};
+export const metadata: Metadata = pageMeta("/about", "About Creatoos | Creative & Technology Studio in Coimbatore", "Creatoos is a Coimbatore-based creative and technology studio building brands, digital products and marketing systems - with an AI-assisted process and human editorial control.");
 
 const beliefs = [
   { title: "Positioning before pixels.", body: "A logo cannot fix an unclear proposition. We start with what you stand for." },
@@ -35,6 +34,7 @@ const stats = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "About", path: "/about" }])} />
       <PageHero
         eyebrow="About Creatoos"
         title="A studio built for the businesses *around* us"

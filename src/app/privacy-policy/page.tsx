@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import LegalPage from "@/components/LegalPage";
 
-export const metadata: Metadata = { title: "Privacy Policy - Creatoos" };
+export const metadata: Metadata = { ...pageMeta("/privacy-policy", "Privacy Policy - Creatoos", "Creatoos privacy policy."), robots: { index: true, follow: true } };
 
 export default function Privacy() {
   return (
+    <>
+    <JsonLd data={breadcrumbLd([{ name: "Privacy Policy", path: "/privacy-policy" }])} />
     <LegalPage
       title="Privacy Policy"
       sections={[
@@ -15,5 +19,6 @@ export default function Privacy() {
         { h: "Your rights", p: "You can ask us to see, correct or delete the personal information we hold about you at any time." },
       ]}
     />
+  </>
   );
 }

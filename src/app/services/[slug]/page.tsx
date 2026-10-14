@@ -7,6 +7,8 @@ import ContactCta from "@/components/ContactCta";
 import { SectionHead } from "@/components/home/Sections";
 import { services } from "@/lib/content";
 import { serviceDetails } from "@/lib/serviceDetails";
+import { breadcrumbLd, pageMeta, serviceLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -16,7 +18,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const d = serviceDetails[(await params).slug];
-  return d ? { title: d.metaTitle, description: d.metaDescription } : {};
+  const { slug } = await params;
+  return d ? pageMeta(`/services/${slug}`, d.metaTitle, d.metaDescription) : {};
 }
 
 export default async function ServicePage({ params }: Params) {
@@ -29,6 +32,10 @@ export default async function ServicePage({ params }: Params) {
 
   return (
     <>
+      <JsonLd data={[
+        serviceLd(slug, svc.title, d.metaDescription),
+        breadcrumbLd([{ name: "Services", path: "/services" }, { name: svc.title, path: `/services/${slug}` }]),
+      ]} />
       <PageHero
         eyebrow={`Service ${String(idx + 1).padStart(2, "0")} / 09 · ${svc.title}`}
         title={d.h1}

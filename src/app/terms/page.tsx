@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import LegalPage from "@/components/LegalPage";
 
-export const metadata: Metadata = { title: "Terms of Service - Creatoos" };
+export const metadata: Metadata = { ...pageMeta("/terms", "Terms of Service - Creatoos", "Creatoos terms of service."), robots: { index: true, follow: true } };
 
 export default function Terms() {
   return (
+    <>
+    <JsonLd data={breadcrumbLd([{ name: "Terms of Service", path: "/terms" }])} />
     <LegalPage
       title="Terms of Service"
       sections={[
@@ -15,5 +19,6 @@ export default function Terms() {
         { h: "Confidentiality", p: "We sign NDAs before any commercially sensitive discussion and treat all client material as confidential." },
       ]}
     />
+  </>
   );
 }

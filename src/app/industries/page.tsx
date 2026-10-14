@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import PageHero from "@/components/PageHero";
 import ContactCta from "@/components/ContactCta";
 
-export const metadata: Metadata = {
-  title: "Industries We Serve | Healthcare, Hospitality, Retail & More - Creatoos",
-  description: "Branding and digital marketing for healthcare, hospitality, education, retail, D2C and manufacturing businesses.",
-};
+export const metadata: Metadata = pageMeta("/industries", "Industries We Serve | Healthcare, Hospitality, Retail & More - Creatoos", "Branding and digital marketing for healthcare, hospitality, education, retail, D2C and manufacturing businesses.");
 
 const blocks = [
   { t: "Healthcare & clinics", b: "Patient trust is built before the first appointment. Clinic branding, doctor profiles, treatment pages, appointment flows and the local search work that gets you found at the moment someone needs you." },
@@ -21,6 +20,7 @@ const blocks = [
 export default function IndustriesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Industries", path: "/industries" }])} />
       <PageHero
         eyebrow="Industries"
         title="We know your category before the *first* meeting"
