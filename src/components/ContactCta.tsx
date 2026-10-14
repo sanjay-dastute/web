@@ -54,18 +54,30 @@ export default function ContactCta() {
 
   return (
     <section id="contact" className="sky relative overflow-hidden py-[120px]">
-      <div className="container-air grid gap-12 md:grid-cols-[1fr_1.1fr] md:items-center">
+      <div className="container-air grid gap-12">
+        {/* Heading row above a full-width form, so the card reads square rather than tall. */}
         <div data-reveal>
-          <h2 className="text-[clamp(40px,6vw,72px)] leading-[1] tracking-[-0.02em]">
+          <h2 className="max-w-[900px] text-[clamp(40px,6vw,72px)] leading-[1] tracking-[-0.02em]">
             Let&apos;s talk about what you&apos;re <em className="cursive not-italic text-twilight-blue">building.</em>
           </h2>
-          <p className="mt-6 max-w-[460px] text-[18px] text-ink/75">
+          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <p className="max-w-[560px] text-[18px] text-ink/75">
             A 30-minute call, no charge, no pitch deck. Tell us where you are and we&apos;ll tell you honestly what we&apos;d do first - and what we&apos;d leave alone for now.
           </p>
-          <div className="mt-8 space-y-1 text-[14px]">
-            <p><a href={contact.phoneHref} className="link-u">{contact.phone}</a> <span className="text-mute">· Phone / WhatsApp</span></p>
-            <p><a href={`mailto:${contact.email}`} className="link-u">{contact.email}</a></p>
-            <p className="pt-2 text-mute">{contact.hours}</p>
+          <dl className="grid shrink-0 grid-cols-2 gap-x-10 gap-y-5 text-[15px] sm:grid-cols-[auto_auto_auto] lg:pb-1">
+            <div>
+              <dt className="mb-1 text-[12px] text-mute">Call / WhatsApp</dt>
+              <dd><a href={contact.phoneHref} className="whitespace-nowrap hover:text-twilight-blue">{contact.phone}</a></dd>
+            </div>
+            <div>
+              <dt className="mb-1 text-[12px] text-mute">Email</dt>
+              <dd><a href={`mailto:${contact.email}`} className="hover:text-twilight-blue">{contact.email}</a></dd>
+            </div>
+            <div>
+              <dt className="mb-1 text-[12px] text-mute">Hours</dt>
+              <dd className="whitespace-nowrap">Mon-Sat, 9:30-6:30 IST</dd>
+            </div>
+          </dl>
           </div>
         </div>
 
@@ -86,7 +98,7 @@ export default function ContactCta() {
               <p className="mt-4 text-ink/75">We&apos;ll be in touch within one working day.</p>
             </div>
           ) : (
-            <div className="space-y-9">
+            <div className="grid gap-x-14 gap-y-10 lg:grid-cols-2">
               <Step n="01" title="About you">
                 <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
                   <Field label="Your name" required value={name} onChange={setName} />
@@ -131,8 +143,9 @@ export default function ContactCta() {
                 <Field label="A few lines is plenty - goals, links, anything useful" textarea value={msg} onChange={setMsg} />
               </Step>
 
-              <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center">
-                <button className="group relative inline-flex flex-1 items-center justify-between overflow-hidden rounded-[8px] bg-ink px-6 py-4 text-[15px] text-white">
+              <div className="flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center lg:col-span-2">
+                <p className="text-[12px] text-mute sm:order-first sm:mr-auto">Free 30-minute call · Reply within one working day · NDA on request</p>
+                <button className="group relative inline-flex items-center justify-between gap-10 overflow-hidden rounded-[8px] bg-ink px-6 py-4 text-[15px] text-white">
                   <span className="absolute inset-0 -translate-x-full bg-twilight-blue transition-transform duration-500 ease-out group-hover:translate-x-0" />
                   <span className="relative">Send Enquiry</span>
                   <span className="relative transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -142,7 +155,6 @@ export default function ContactCta() {
                   <span className="h-2 w-2 rounded-full bg-[#25D366]" /> WhatsApp Us
                 </a>
               </div>
-              <p className="text-center text-[12px] text-mute">Free 30-minute call · Reply within one working day · NDA on request</p>
             </div>
           )}
         </form>
