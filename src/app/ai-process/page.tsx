@@ -6,7 +6,7 @@ import ContactCta from "@/components/ContactCta";
 import AIDifference from "@/components/home/AIDifference";
 import { SectionHead } from "@/components/home/Sections";
 
-export const metadata: Metadata = pageMeta("/ai-process", "How Creatoos Uses AI | AI-Assisted Creative & Marketing Process", "AI sits in our production pipeline - research, generation, variation and testing. Every output passes human editorial review. Here's exactly how it works.");
+export const metadata: Metadata = pageMeta("/ai-process", "How Creatoos Uses AI | Our AI-Assisted Process", "AI sits in our production pipeline - research, generation, variation and testing. Every output passes human editorial review. Here's exactly how it works.");
 
 const byService = [
   { s: "Branding", ai: "Category research, competitor messaging analysis, name generation and screening, wider design exploration.", h: "The positioning decision and the final mark." },

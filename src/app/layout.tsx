@@ -15,8 +15,8 @@ const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat", weight: [
 
 const home = pageMeta(
   "/",
-  "Creative & Digital Agency in Coimbatore | Branding, Web & AI Marketing - Creatoos",
-  "Creatoos is a Coimbatore-based creative and technology studio. Branding, web and app development, digital marketing, SEO and AI search optimisation for growing businesses.",
+  "Creatoos | Creative & Digital Marketing Agency, Coimbatore",
+  "Coimbatore creative and technology studio: branding, websites, apps, digital marketing, SEO and AI search optimisation for growing businesses.",
 );
 
 export const metadata: Metadata = {

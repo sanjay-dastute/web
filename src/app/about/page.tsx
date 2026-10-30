@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import ContactCta from "@/components/ContactCta";
 import { SectionHead } from "@/components/home/Sections";
 
-export const metadata: Metadata = pageMeta("/about", "About Creatoos | Creative & Technology Studio in Coimbatore", "Creatoos is a Coimbatore-based creative and technology studio building brands, digital products and marketing systems - with an AI-assisted process and human editorial control.");
+export const metadata: Metadata = pageMeta("/about", "About Creatoos | Creative Studio in Coimbatore", "A Coimbatore creative and technology studio building brands, digital products and marketing systems, with AI-assisted work and human review.");
 
 const beliefs = [
   { title: "Positioning before pixels.", body: "A logo cannot fix an unclear proposition. We start with what you stand for." },

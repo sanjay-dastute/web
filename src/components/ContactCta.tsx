@@ -41,7 +41,9 @@ function Field({ label, value, onChange, type = "text", required, textarea }: Fi
 }
 
 /** Air-style closing section: calm headline on sky + a light enquiry card. */
-export default function ContactCta() {
+/** `h1` makes the heading the page title, for the Contact page where this is the hero. */
+export default function ContactCta({ h1 = false }: { h1?: boolean }) {
+  const H = h1 ? "h1" : "h2";
   const [picked, setPicked] = useState<string[]>([]);
   const [sent, setSent] = useState(false);
   const [name, setName] = useState("");
@@ -58,9 +60,9 @@ export default function ContactCta() {
       <div className="container-air grid gap-12">
         {/* Heading row above a full-width form, so the card reads square rather than tall. */}
         <div data-reveal>
-          <h2 className="max-w-[900px] text-[clamp(40px,6vw,72px)] leading-[1] tracking-[-0.02em]">
+          <H className="max-w-[900px] text-[clamp(40px,6vw,72px)] leading-[1] tracking-[-0.02em]">
             Let&apos;s talk about what you&apos;re <em className="cursive not-italic text-brand-deep">building.</em>
-          </h2>
+          </H>
           <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <p className="max-w-[560px] text-[18px] text-ink/75">
             A 30-minute call, no charge, no pitch deck. Tell us where you are and we&apos;ll tell you honestly what we&apos;d do first - and what we&apos;d leave alone for now.

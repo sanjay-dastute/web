@@ -46,7 +46,7 @@ export default function Nav() {
               onClick={() => setMenu((m) => !m)}
               aria-expanded={menu}
             >
-              Services <span className={`text-[10px] transition-transform ${menu ? "rotate-180" : ""}`}>▾</span>
+              Services <span aria-hidden className={`mb-1 inline-block h-1.5 w-1.5 border-b-[1.5px] border-r-[1.5px] border-current transition-transform ${menu ? "-rotate-[135deg] mb-0" : "rotate-45"}`} />
             </button>
           </li>
           {links.map((l) => (

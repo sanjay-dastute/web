@@ -54,8 +54,8 @@ export default function Footer() {
       <div className="container-air flex flex-wrap justify-between gap-4 border-t border-line py-6 text-[13px] text-mute">
         <span>© {new Date().getFullYear()} Creatoos. All rights reserved. Serving across India.</span>
         <span className="flex gap-6">
-          <Link href="/privacy-policy">Privacy Policy</Link>
-          <Link href="/terms">Terms of Service</Link>
+          <Link href="/privacy-policy" className="py-1">Privacy Policy</Link>
+          <Link href="/terms" className="py-1">Terms of Service</Link>
         </span>
       </div>
     </footer>

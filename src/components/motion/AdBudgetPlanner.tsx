@@ -32,9 +32,9 @@ export default function AdBudgetPlanner() {
               role="radio"
               aria-checked={g === i}
               onClick={() => setG(i)}
-              className={`flex w-full items-center justify-between gap-4 rounded-[10px] px-4 py-3 text-left text-[15px] transition-colors duration-300 ${g === i ? "bg-brand-petal" : "hover:bg-haze"}`}
+              className={`flex w-full items-center justify-between gap-3 rounded-[10px] px-3 py-3 text-left text-[15px] sm:gap-4 sm:px-4 transition-colors duration-300 ${g === i ? "bg-brand-petal" : "hover:bg-haze"}`}
             >
-              <span className="flex items-center gap-3">
+              <span className="flex min-w-0 items-center gap-3">
                 <span className={`h-3 w-3 shrink-0 rounded-full border-2 transition-colors ${g === i ? "border-brand bg-brand" : "border-ink/25"}`} aria-hidden />
                 {row.goal}
               </span>

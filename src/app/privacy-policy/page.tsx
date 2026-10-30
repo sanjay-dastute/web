@@ -3,7 +3,7 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import LegalPage from "@/components/LegalPage";
 
-export const metadata: Metadata = { ...pageMeta("/privacy-policy", "Privacy Policy - Creatoos", "Creatoos privacy policy."), robots: { index: true, follow: true } };
+export const metadata: Metadata = { ...pageMeta("/privacy-policy", "Privacy Policy - Creatoos", "How Creatoos collects, uses and protects personal data from enquiries, this website and client projects, and how to request access or deletion."), robots: { index: true, follow: true } };
 
 export default function Privacy() {
   return (

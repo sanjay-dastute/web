@@ -19,7 +19,7 @@ export type ServiceDetail = {
 
 export const serviceDetails: Record<string, ServiceDetail> = {
   branding: {
-    metaTitle: "Branding Agency in Coimbatore | Brand Strategy & Identity - Creatoos",
+    metaTitle: "Branding Agency in Coimbatore | Creatoos",
     metaDescription: "Brand positioning, naming, messaging and identity systems for growing businesses. AI-accelerated research, human-led strategy. Free consultation.",
     h1: "Branding that starts with a *decision,* not a design",
     sub: "Every business gets one chance to be understood quickly. We build the language and the look that makes that happen - beginning with positioning, not with a logo sketch.",
@@ -54,7 +54,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "logo-design": {
-    metaTitle: "Logo Design in Coimbatore | Professional Logo & Identity - Creatoos",
+    metaTitle: "Logo Design in Coimbatore | Creatoos",
     metaDescription: "Professional logo design with multiple concepts, full file handover and a complete identity kit. Serving Coimbatore, Tiruppur, Erode and all of Tamil Nadu.",
     h1: "A logo that still works at *40 pixels*",
     sub: "Most logos are designed on a large screen and fall apart on a phone, on a signboard, or in a single colour. We design for the places yours will actually live.",
@@ -86,7 +86,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "web-development": {
-    metaTitle: "Web Development Company in Coimbatore | Websites & E-commerce - Creatoos",
+    metaTitle: "Website Development in Coimbatore | Creatoos",
     metaDescription: "Fast, search-ready websites and e-commerce stores. Built for speed and structure, with full handover of code and admin access.",
     h1: "Websites built to be *found,* not just admired",
     sub: "A beautiful site nobody finds is an expensive brochure. We build for speed, structure and search from the first line - then hand you the keys.",
@@ -129,7 +129,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "app-development": {
-    metaTitle: "Mobile App Development in Coimbatore | iOS & Android Apps - Creatoos",
+    metaTitle: "App Development in Coimbatore | iOS & Android - Creatoos",
     metaDescription: "Hybrid and native mobile app development. Built to launch, tested on real devices, full source code handover.",
     h1: "Apps built to *launch,* not to demo",
     sub: "Most app projects die between the prototype and the app store. We scope tightly, build in visible increments, and get you to a real release.",
@@ -165,7 +165,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "digital-marketing": {
-    metaTitle: "Digital Marketing Agency in Coimbatore | Meta & Google Ads - Creatoos",
+    metaTitle: "Digital Marketing Agency in Coimbatore | Creatoos",
     metaDescription: "Performance marketing with weekly creative testing. Meta and Google campaigns, landing pages and funnel design, reported in plain language.",
     h1: "Campaigns measured weekly, reported in *plain* language",
     sub: "Most agencies show you a dashboard. We show you what we changed, what it did, and what we're changing next.",
@@ -198,7 +198,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "social-media": {
-    metaTitle: "Social Media Management in Coimbatore | Content & Community - Creatoos",
+    metaTitle: "Social Media Management in Coimbatore | Creatoos",
     metaDescription: "Content calendars, production and community management. 12 to 20 posts monthly across your key platforms, written to sound like a person.",
     h1: "Content that sounds like a *person,* not a brand guideline",
     sub: "Anyone can fill a calendar. The difference is whether your audience stops scrolling - and that comes down to whether it sounds like someone they'd actually listen to.",
@@ -229,7 +229,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   seo: {
-    metaTitle: "SEO Services in Coimbatore | Technical, Local & Content SEO - Creatoos",
+    metaTitle: "SEO Services in Coimbatore | Creatoos",
     metaDescription: "SEO built on technical health, content operations and local search - including AI answer-engine visibility tracking.",
     h1: "SEO that *survives* the next algorithm update",
     sub: "We don't chase tactics. We fix the foundation, publish content people actually want, and build the signals that hold up over time.",
@@ -258,7 +258,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   "ai-search": {
-    metaTitle: "AEO & GEO Services | Get Cited in ChatGPT, Gemini & Perplexity - Creatoos",
+    metaTitle: "AEO & GEO Services | AI Search Optimisation - Creatoos",
     metaDescription: "AI search optimisation for brands. Get found inside ChatGPT, Gemini, Perplexity and Google AI Overviews, with tracked prompt-set reporting.",
     h1: "Your customers are asking *AI.* Does it mention you?",
     sub: "Discovery is moving from search results to AI-generated answers. A brand absent from those answers is invisible at exactly the moment someone is deciding.",
@@ -287,7 +287,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
 
   strategy: {
-    metaTitle: "Brand & Market Strategy Consulting | Research-Led - Creatoos Coimbatore",
+    metaTitle: "Brand & Market Strategy Consulting | Creatoos",
     metaDescription: "Market research, competitor teardowns, customer insight and go-to-market planning. AI-accelerated research, human-led strategy.",
     h1: "The work *before* the work",
     sub: "Most wasted marketing spend traces back to a decision made without evidence. Research is cheaper than the campaign it saves you from running.",

@@ -9,8 +9,8 @@ import { pricingFaqs } from "@/lib/proposal";
 
 export const metadata: Metadata = pageMeta(
   "/pricing",
-  "Digital Marketing Pricing in Coimbatore | Plans from INR 25,000 - Creatoos",
-  "Digital marketing plans from INR 25,000 per month: social media, reels, Meta and Google Ads, SEO, AEO and reporting. Ad spend paid directly by you, never marked up.",
+  "Digital Marketing Pricing | From INR 25,000 - Creatoos",
+  "Digital marketing plans from INR 25,000 a month: social media, reels, Meta and Google Ads, SEO and reporting. Ad spend paid by you, never marked up.",
 );
 
 // Starting prices as schema.org offers, so search and AI answers can quote them accurately.

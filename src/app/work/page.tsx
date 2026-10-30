@@ -5,7 +5,7 @@ import PageHero from "@/components/PageHero";
 import ContactCta from "@/components/ContactCta";
 import WorkGrid from "@/components/WorkGrid";
 
-export const metadata: Metadata = pageMeta("/work", "Our Work | Branding, Web & Marketing Case Studies - Creatoos", "Selected projects across healthcare, hospitality, retail and D2C. Branding, websites, campaigns and search work from Creatoos, Coimbatore.");
+export const metadata: Metadata = pageMeta("/work", "Our Work | Case Studies - Creatoos Coimbatore", "Selected projects across healthcare, hospitality, retail and D2C. Branding, websites, campaigns and search work from Creatoos, Coimbatore.");
 
 export default function WorkPage() {
   return (

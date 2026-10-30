@@ -5,7 +5,7 @@ import ContactCta from "@/components/ContactCta";
 import Faq from "@/components/Faq";
 import { contact } from "@/lib/content";
 
-export const metadata: Metadata = pageMeta("/contact", "Contact Creatoos | Creative & Digital Agency, Coimbatore", "Talk to Creatoos about your branding, website or marketing project. Free 30-minute consultation. Coimbatore, Tamil Nadu.");
+export const metadata: Metadata = pageMeta("/contact", "Contact Creatoos | Creative Agency in Coimbatore", "Talk to Creatoos about your branding, website or marketing project. Free 30-minute consultation. Coimbatore, Tamil Nadu.");
 
 const faqs = [
   { q: "Do you work with clients outside Coimbatore?", a: "Yes. We work with clients across Tamil Nadu and India, and internationally. Most collaboration happens remotely, with in-person meetings where it helps." },
@@ -19,7 +19,7 @@ export default function ContactPage() {
     <>
       <JsonLd data={breadcrumbLd([{ name: "Contact", path: "/contact" }])} />
       <div className="pt-[var(--nav-h)]" />
-      <ContactCta />
+      <ContactCta h1 />
       <section className="container-air grid gap-6 py-[96px] md:grid-cols-3">
         {[
           { k: "Studio", v: contact.address },

@@ -96,7 +96,7 @@ export default function Story() {
           {/* Stage: fragments, then the mark. */}
           <div className="relative aspect-square w-full max-w-[min(560px,68svh,82vw)] justify-self-center" aria-hidden>
             <div className="st-frag absolute left-[2%] top-[6%] w-[44%] rotate-[-6deg] rounded-[22px] bg-[#efe4ff] p-5 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)]">
-              <p className="text-[10px] uppercase tracking-[0.14em] text-ink/50">Logo · freelancer 1</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-ink/60">Logo - freelancer 1</p>
               <p className="mt-6 font-serif text-[clamp(22px,2.6vw,34px)] italic leading-none text-[#5b3fa0]">Your Brand</p>
               <p className="mt-2 text-[11px] text-ink/50">est. 2019</p>
             </div>
@@ -106,7 +106,7 @@ export default function Story() {
                 <span className="h-2 w-2 rounded-full bg-ink/15" /><span className="h-2 w-2 rounded-full bg-ink/15" /><span className="h-2 w-2 rounded-full bg-ink/15" />
               </div>
               <div className="space-y-2 p-4">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-ink/50">Website · freelancer 2</p>
+                <p className="text-[11px] uppercase tracking-[0.14em] text-ink/60">Website - freelancer 2</p>
                 <div className="h-3 w-3/4 rounded bg-[#1f6f5c]/70" />
                 <div className="h-2 w-full rounded bg-ink/10" />
                 <div className="h-2 w-5/6 rounded bg-ink/10" />
@@ -115,7 +115,7 @@ export default function Story() {
             </div>
   
             <div className="st-frag absolute bottom-[4%] left-[14%] w-[46%] rotate-[-3deg] rounded-[14px] bg-[#fff3b0] p-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)]">
-              <p className="text-[10px] uppercase tracking-[0.14em] text-ink/50">Ads · freelancer 3</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-ink/60">Ads - freelancer 3</p>
               <p className="mt-3 text-[clamp(16px,1.8vw,22px)] font-bold uppercase leading-tight text-[#c2410c]">Big sale!!! Best quality products</p>
               <p className="mt-2 text-[11px] text-ink/50">Contact for more details</p>
             </div>

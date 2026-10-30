@@ -3,7 +3,7 @@ import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import LegalPage from "@/components/LegalPage";
 
-export const metadata: Metadata = { ...pageMeta("/terms", "Terms of Service - Creatoos", "Creatoos terms of service."), robots: { index: true, follow: true } };
+export const metadata: Metadata = { ...pageMeta("/terms", "Terms of Service - Creatoos", "Terms for using the Creatoos website and engaging Creatoos for branding, web and digital marketing services, including payments and ownership."), robots: { index: true, follow: true } };
 
 export default function Terms() {
   return (

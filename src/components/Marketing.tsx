@@ -205,7 +205,8 @@ export function AdBudget() {
         <SectionHead eyebrow="Paid promotion - ad budget" center={false}>
           Your ad budget is paid <Accent text="*directly by you,*" /> to the platform
         </SectionHead>
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+        {/* min-w-0: grid columns otherwise refuse to shrink below their content on 320px phones. */}
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] [&>*]:min-w-0">
           <div className="space-y-6">
             <div className="grid items-stretch gap-4 sm:grid-cols-[1fr_auto_1fr]">
               <div className="rounded-[14px] p-6 text-white" style={{ background: "var(--gradient-brand)" }} data-reveal>

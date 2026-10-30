@@ -7,7 +7,7 @@ import ContactCta from "@/components/ContactCta";
 import { SectionHead } from "@/components/home/Sections";
 import { services } from "@/lib/content";
 
-export const metadata: Metadata = pageMeta("/services", "Our Services | Branding, Web, Marketing & AI - Creatoos Coimbatore", "Nine service lines under one roof: branding, logo design, web and app development, digital marketing, social media, SEO, AI search optimisation and strategy.");
+export const metadata: Metadata = pageMeta("/services", "Services | Branding, Web, Marketing & AI - Creatoos", "Nine service lines under one roof: branding, logo design, web and app development, digital marketing, social media, SEO, AI search optimisation and strategy.");
 
 const paths = [
   { title: "Launching something new", steps: ["Brand strategy", "Identity & logo", "Website", "Social setup", "Local SEO"] },
