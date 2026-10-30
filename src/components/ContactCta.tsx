@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { contact } from "@/lib/content";
+import { LogoMark } from "@/components/Logo";
 
 const needs = ["Branding", "Logo", "Website", "App", "Digital Marketing", "Social Media", "SEO", "AI Search", "Strategy", "Not sure yet"];
 const whens = ["Immediately", "Within a month", "Within three months", "Just exploring"];
@@ -10,7 +11,7 @@ function Step({ n, title, hint, children }: { n: string; title: string; hint?: s
   return (
     <fieldset>
       <legend className="mb-4 flex w-full items-baseline gap-3">
-        <span className="text-[12px] text-twilight-blue">{n}</span>
+        <span className="text-[12px] text-brand-deep">{n}</span>
         <span className="text-[17px]">{title}</span>
         {hint && <span className="ml-auto text-[12px] text-mute">{hint}</span>}
       </legend>
@@ -31,10 +32,10 @@ function Field({ label, value, onChange, type = "text", required, textarea }: Fi
       ) : (
         <input type={type} required={required} placeholder=" " value={value} onChange={(e) => onChange(e.target.value)} className={cls} />
       )}
-      <span className="pointer-events-none absolute left-0 top-6 text-[16px] text-ink/50 transition-all duration-300 peer-focus:top-0 peer-focus:text-[12px] peer-focus:text-twilight-blue peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[12px]">
+      <span className="pointer-events-none absolute left-0 top-6 text-[16px] text-ink/50 transition-all duration-300 peer-focus:top-0 peer-focus:text-[12px] peer-focus:text-brand-deep peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[12px]">
         {label}{required && " *"}
       </span>
-      <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-twilight-blue transition-transform duration-500 peer-focus:scale-x-100" />
+      <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-brand-deep transition-transform duration-500 peer-focus:scale-x-100" />
     </label>
   );
 }
@@ -58,7 +59,7 @@ export default function ContactCta() {
         {/* Heading row above a full-width form, so the card reads square rather than tall. */}
         <div data-reveal>
           <h2 className="max-w-[900px] text-[clamp(40px,6vw,72px)] leading-[1] tracking-[-0.02em]">
-            Let&apos;s talk about what you&apos;re <em className="cursive not-italic text-twilight-blue">building.</em>
+            Let&apos;s talk about what you&apos;re <em className="cursive not-italic text-brand-deep">building.</em>
           </h2>
           <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <p className="max-w-[560px] text-[18px] text-ink/75">
@@ -67,11 +68,11 @@ export default function ContactCta() {
           <dl className="grid shrink-0 grid-cols-2 gap-x-10 gap-y-5 text-[15px] sm:grid-cols-[auto_auto_auto] lg:pb-1">
             <div>
               <dt className="mb-1 text-[12px] text-mute">Call / WhatsApp</dt>
-              <dd><a href={contact.phoneHref} className="whitespace-nowrap hover:text-twilight-blue">{contact.phone}</a></dd>
+              <dd><a href={contact.phoneHref} className="whitespace-nowrap hover:text-brand-deep">{contact.phone}</a></dd>
             </div>
             <div>
               <dt className="mb-1 text-[12px] text-mute">Email</dt>
-              <dd><a href={`mailto:${contact.email}`} className="hover:text-twilight-blue">{contact.email}</a></dd>
+              <dd><a href={`mailto:${contact.email}`} className="hover:text-brand-deep">{contact.email}</a></dd>
             </div>
             <div>
               <dt className="mb-1 text-[12px] text-mute">Hours</dt>
@@ -83,19 +84,39 @@ export default function ContactCta() {
 
         <form
           data-reveal="0.1"
-          className="relative overflow-hidden rounded-[14px] border border-white/90 bg-white/55 p-6 shadow-[0_30px_80px_-30px_rgba(66,97,136,.45)] backdrop-blur-2xl md:p-10"
-          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          className="relative overflow-hidden rounded-[14px] border border-white/90 bg-white/55 p-6 shadow-[0_30px_80px_-30px_rgba(255,33,79,.45)] backdrop-blur-2xl md:p-10"
+          onSubmit={(e) => {
+            e.preventDefault();
+            // No mail backend yet: hand the enquiry to WhatsApp, pre-written to the studio number.
+            const text = [
+              "New enquiry from creatoos.com",
+              `Name: ${name}`,
+              biz && `Business: ${biz}`,
+              `Phone: ${phone}`,
+              email && `Email: ${email}`,
+              picked.length > 0 && `Needs: ${picked.join(", ")}`,
+              when && `Timing: ${when}`,
+              msg && `Project: ${msg}`,
+            ].filter(Boolean).join("\n");
+            window.open(`${contact.whatsapp}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+            setSent(true);
+          }}
         >
           {/* Progress hairline fills as steps are completed. */}
           <div className="absolute inset-x-0 top-0 h-[3px] bg-ink/5">
-            <div className="h-full bg-twilight-blue transition-[width] duration-700 ease-out" style={{ width: `${progress * 100}%` }} />
+            <div className="h-full bg-brand-deep transition-[width] duration-700 ease-out" style={{ width: `${progress * 100}%` }} />
           </div>
 
           {sent ? (
             <div className="py-20 text-center animate-[fadeSwap_.7s_ease]">
-              <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full bg-ink text-[28px] text-white">✓</div>
-              <p className="cursive text-[56px] leading-none text-twilight-blue">Thank you{name ? `, ${name.split(" ")[0]}` : ""}.</p>
-              <p className="mt-4 text-ink/75">We&apos;ll be in touch within one working day.</p>
+              <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full bg-white shadow-[0_10px_30px_-10px_rgba(255,33,79,.5)]">
+                <LogoMark className="h-8 w-auto" />
+              </div>
+              <p className="cursive text-[56px] leading-none text-brand-deep">Thank you{name ? `, ${name.split(" ")[0]}` : ""}.</p>
+              <p className="mt-4 text-ink/75">Your enquiry is ready in WhatsApp - press send there and we&apos;ll reply within one working day.</p>
+              <p className="mt-2 text-[14px] text-mute">
+                WhatsApp didn&apos;t open? Email us at <a href={`mailto:${contact.email}`} className="link-u">{contact.email}</a> or call {contact.phone}.
+              </p>
             </div>
           ) : (
             <div className="grid gap-x-14 gap-y-10 lg:grid-cols-2">
@@ -118,7 +139,9 @@ export default function ContactCta() {
                         className={`group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[14px] transition-all duration-300 ${
                           on ? "border-ink bg-ink text-white" : "border-ink/15 bg-white/70 hover:border-ink/40"
                         }`}>
-                        <span className={`grid h-4 w-4 place-items-center rounded-full text-[10px] transition-all ${on ? "bg-white text-ink" : "border border-ink/30 text-transparent"}`}>✓</span>
+                        <span className={`grid h-4 w-4 place-items-center rounded-full transition-all ${on ? "bg-white" : "border border-ink/30"}`} aria-hidden>
+                          <span className={`h-2 w-2 rounded-full transition-transform ${on ? "scale-100 bg-brand" : "scale-0"}`} />
+                        </span>
                         {n}
                       </button>
                     );
@@ -146,7 +169,7 @@ export default function ContactCta() {
               <div className="flex flex-col gap-4 border-t border-ink/10 pt-8 sm:flex-row sm:items-center lg:col-span-2">
                 <p className="text-[12px] text-mute sm:order-first sm:mr-auto">Free 30-minute call · Reply within one working day · NDA on request</p>
                 <button className="group relative inline-flex items-center justify-between gap-10 overflow-hidden rounded-[8px] bg-ink px-6 py-4 text-[15px] text-white">
-                  <span className="absolute inset-0 -translate-x-full bg-twilight-blue transition-transform duration-500 ease-out group-hover:translate-x-0" />
+                  <span className="absolute inset-0 -translate-x-full bg-brand-deep transition-transform duration-500 ease-out group-hover:translate-x-0" />
                   <span className="relative">Send Enquiry</span>
                   <span className="relative transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </button>

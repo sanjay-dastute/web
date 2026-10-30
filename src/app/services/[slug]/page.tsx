@@ -9,6 +9,7 @@ import { services } from "@/lib/content";
 import { serviceDetails } from "@/lib/serviceDetails";
 import { breadcrumbLd, pageMeta, serviceLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
+import { DmServices, LaunchPlan, Objectives, Plans, ProofStats, ScopeOfWork } from "@/components/Marketing";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -64,6 +65,18 @@ export default async function ServicePage({ params }: Params) {
         )}
       </section>
 
+      {/* Digital marketing carries the full proposal: objectives, 16 services, scope, launch plan, proof, plans. */}
+      {slug === "digital-marketing" && (
+        <>
+          <Objectives />
+          <DmServices />
+          <ScopeOfWork />
+          <LaunchPlan />
+          <ProofStats />
+          <Plans compact />
+        </>
+      )}
+
       <section className="bg-haze py-[120px]">
         <div className="container-air grid gap-12 md:grid-cols-[1fr_1.4fr]">
           <div data-reveal>
@@ -71,7 +84,7 @@ export default async function ServicePage({ params }: Params) {
             <h2 className="text-[clamp(32px,4.6vw,56px)] leading-[1.05] tracking-[-0.02em]">{d.aiTitle}</h2>
             {d.aiIntro && <p className="mt-6 text-[18px] text-ink/75">{d.aiIntro}</p>}
             <div className="mt-8 rounded-[12px] bg-white p-6">
-              <p className="cursive text-[32px] leading-none text-twilight-blue">What stays human</p>
+              <p className="cursive text-[32px] leading-none text-brand-deep">What stays human</p>
               <p className="mt-3">{d.human}</p>
             </div>
           </div>
@@ -98,7 +111,7 @@ export default async function ServicePage({ params }: Params) {
             {d.timeline.map((t, i) => (
               <li key={t.label} data-reveal={i * 0.06} className="group flex flex-wrap items-baseline justify-between gap-4 border-t border-line py-6 last:border-b">
                 <span className="text-[20px] transition-transform duration-500 group-hover:translate-x-2">{t.label}</span>
-                <span className="text-twilight-blue">{t.time}</span>
+                <span className="text-brand-deep">{t.time}</span>
               </li>
             ))}
           </ul>
@@ -111,7 +124,7 @@ export default async function ServicePage({ params }: Params) {
         <Link href={`/services/${next.slug}`} className="group flex items-end justify-between border-t border-ink pt-8" data-reveal>
           <span>
             <span className="block text-[13px] text-mute">Next service</span>
-            <span className="display mt-2 block text-[clamp(48px,8vw,120px)] transition-colors group-hover:text-twilight-blue">{next.title}</span>
+            <span className="display mt-2 block text-[clamp(48px,8vw,120px)] transition-colors group-hover:text-brand-deep">{next.title}</span>
           </span>
           <span className="text-[40px] transition-transform group-hover:translate-x-2">→</span>
         </Link>

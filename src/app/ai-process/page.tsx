@@ -40,7 +40,7 @@ export default function AIProcessPage() {
 
       <section className="container-air grid gap-12 py-[120px] md:grid-cols-[1fr_1.3fr]">
         <h2 className="text-[clamp(32px,4.6vw,56px)] leading-[1.05] tracking-[-0.02em]" data-reveal>
-          The <em className="cursive not-italic text-twilight-blue">honest</em> version
+          The <em className="cursive not-italic text-brand-deep">honest</em> version
         </h2>
         <div className="space-y-6 text-[18px] text-ink/75" data-reveal="0.1">
           <p>AI does not make our work more creative. It makes it faster to produce, which changes what&apos;s possible within a real timeline and budget.</p>
@@ -64,7 +64,7 @@ export default function AIProcessPage() {
                   <tr key={r.s} className="border-t border-line align-top transition-colors hover:bg-white">
                     <td className="py-5 pr-6 text-[18px]">{r.s}</td>
                     <td className="py-5 pr-6 text-ink/70">{r.ai}</td>
-                    <td className="py-5 text-twilight-blue">{r.h}</td>
+                    <td className="py-5 text-brand-deep">{r.h}</td>
                   </tr>
                 ))}
               </tbody>
@@ -74,7 +74,7 @@ export default function AIProcessPage() {
       </section>
 
       <section className="container-air py-[120px]">
-        <SectionHead eyebrow="What AI never does here">Our limits, stated <em className="cursive not-italic text-twilight-blue">plainly</em></SectionHead>
+        <SectionHead eyebrow="What AI never does here">Our limits, stated <em className="cursive not-italic text-brand-deep">plainly</em></SectionHead>
         <ul className="mx-auto max-w-[760px]">
           {limits.map((l, i) => (
             <li key={l} data-reveal={i * 0.06} className="flex gap-5 border-t border-line py-5 text-[20px] last:border-b">

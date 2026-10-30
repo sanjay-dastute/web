@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMeta("/contact", "Contact Creatoos | Creat
 
 const faqs = [
   { q: "Do you work with clients outside Coimbatore?", a: "Yes. We work with clients across Tamil Nadu and India, and internationally. Most collaboration happens remotely, with in-person meetings where it helps." },
-  { q: "How do I get a quote?", a: "Book a free 30-minute scoping call. We'll understand the requirement, tell you what we'd prioritise, and send a written proposal within two working days." },
+  { q: "How do I get a quote?", a: "Digital marketing plans start at INR 25,000 a month - see the pricing page. For anything else, book a free 30-minute scoping call. We'll understand the requirement, tell you what we'd prioritise, and send a written proposal within two working days." },
   { q: "What happens on the first call?", a: "No pitch deck. We ask about your business, your customers and what's not working. You'll leave with a clear view of what we'd recommend, whether or not you work with us." },
   { q: "Do you sign NDAs?", a: "Yes, before any commercially sensitive discussion." },
 ];

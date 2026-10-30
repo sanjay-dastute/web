@@ -188,6 +188,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     human: "Strategy, budget allocation, brand safety, and the decision about what a result actually means.",
     faqs: [
+      { q: "How much does digital marketing cost?", a: "Plans start at INR 25,000 a month (Starter) and INR 40,000 a month (Growth); Premium is quoted on scope. Ad spend is separate and paid by you directly to the platforms. See the pricing page for everything each plan includes." },
       { q: "Do you charge a percentage of ad spend?", a: "No. We charge a flat monthly retainer. A percentage model rewards an agency for spending more of your money." },
       { q: "How soon will I see results?", a: "Data immediately, meaningful optimisation within 3 to 4 weeks, reliable patterns by month two or three." },
       { q: "Is ad spend included in the retainer?", a: "No. Ad spend is paid directly by you to Meta or Google. The money stays under your control." },

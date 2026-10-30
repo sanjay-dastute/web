@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { services, contact } from "@/lib/content";
+import { Logo } from "@/components/Logo";
 
 const links = [
   { label: "Work", href: "/work" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Industries", href: "/industries" },
   { label: "AI Process", href: "/ai-process" },
   { label: "About", href: "/about" },
@@ -32,8 +34,8 @@ export default function Nav() {
       onMouseLeave={() => setMenu(false)}
     >
       <nav className="container-air flex h-[var(--nav-h)] items-center gap-8">
-        <Link href="/" className="text-[22px] font-medium tracking-tight" aria-label="Creatoos home">
-          creatoos<span className="text-twilight-blue">.</span>
+        <Link href="/" aria-label="Creatoos home">
+          <Logo className="h-[26px] w-auto" />
         </Link>
 
         <ul className="hidden items-center gap-6 text-[14px] lg:flex">
@@ -81,7 +83,7 @@ export default function Nav() {
                   className="group flex gap-3 rounded-lg p-3 transition-colors hover:bg-haze"
                   onClick={() => setMenu(false)}
                 >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-haze text-[13px] text-twilight-blue transition-colors group-hover:bg-white">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-haze text-[13px] text-brand-deep transition-colors group-hover:bg-white">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span>
@@ -93,7 +95,7 @@ export default function Nav() {
             ))}
           </ul>
           <Link href="/services" className="sky relative flex flex-col justify-end overflow-hidden rounded-[12px] p-5" onClick={() => setMenu(false)}>
-            <span className="cursive text-[32px] leading-none text-twilight-blue">the whole stack</span>
+            <span className="cursive text-[32px] leading-none text-brand-deep">the whole stack</span>
             <span className="mt-2 text-[14px]">Buy one service or all nine. One accountable team. →</span>
           </Link>
         </div>

@@ -12,6 +12,20 @@ export const contact = {
   ],
 };
 
+/** Results from live client accounts (Creatoos Digital Marketing Proposal 2026). */
+export const heroStats = [
+  { value: 1.1, prefix: "", suffix: "M+", label: "Views generated for clients" },
+  { value: 1000, prefix: "", suffix: "+", label: "Leads and enquiries delivered" },
+  { value: 9, prefix: "", suffix: "", label: "Service lines, one team" },
+];
+
+/** The three disconnected pieces in the home "problem" scene. */
+export const problemLines = [
+  "A logo that doesn't match the website.",
+  "A website nobody finds.",
+  "Marketing that sounds like it was written by someone who has never met your customer.",
+];
+
 export type Service = {
   slug: string;
   title: string;
@@ -93,6 +107,7 @@ export const faqs = [
   { q: "Where is Creatoos based?", a: "Creatoos is a creative and technology studio based in Coimbatore, Tamil Nadu. We work with clients across India and handle projects remotely as well as in person." },
   { q: "How does Creatoos use AI?", a: "AI sits in our production process - research, content generation, visual production and creative testing. Every output passes human editorial review before it ships. It lowers turnaround; it does not replace judgement." },
   { q: "How long does a project take?", a: "A logo takes 7 to 12 days. A business website takes 2 to 3 weeks. A full brand identity takes 3 to 4 weeks. An app MVP takes 8 to 14 weeks." },
+  { q: "How much does Creatoos cost?", a: "Digital marketing plans start at INR 25,000 a month (Starter) and INR 40,000 a month (Growth), with Premium quoted on scope; ad spend is paid by you directly to the platforms. Branding, web and app projects are quoted on scope after a free scoping call." },
   { q: "How do I get a quote?", a: "Book a free 30-minute scoping call. We'll understand what you need, tell you what we'd prioritise, and send a written proposal with a firm figure within two working days." },
   { q: "Do you work with businesses outside Coimbatore?", a: "Yes. We work with clients across Tamil Nadu, India and internationally." },
 ];

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeroMark from "@/components/motion/HeroMark";
 
 type Props = {
   eyebrow: string;
@@ -14,7 +15,7 @@ export function Accent({ text }: { text: string }) {
     <>
       {text.split(/(\*[^*]+\*)/).map((part, i) =>
         part.startsWith("*") ? (
-          <em key={i} className="cursive not-italic text-twilight-blue">{part.slice(1, -1)}</em>
+          <em key={i} className="cursive not-italic text-brand-deep">{part.slice(1, -1)}</em>
         ) : (
           <span key={i}>{part}</span>
         ),
@@ -23,7 +24,7 @@ export function Accent({ text }: { text: string }) {
   );
 }
 
-/** Shared inner-page hero: light sky, Air-style headline with one cursive accent word. */
+/** Shared inner-page hero: sky backdrop, word-by-word headline with one cursive accent, floating logo strokes. */
 export default function PageHero({ eyebrow, title, sub, primary, secondary }: Props) {
   return (
     <section className="sky relative overflow-hidden pt-[calc(var(--nav-h)+96px)] pb-[96px]">
@@ -31,9 +32,10 @@ export default function PageHero({ eyebrow, title, sub, primary, secondary }: Pr
         <span style={{ width: 560, height: 170, top: "20%", left: "55%", animationDuration: "70s" }} />
         <span style={{ width: 420, height: 130, top: "60%", left: "5%", animationDuration: "85s", animationDirection: "reverse" }} />
       </div>
-      <div className="container-air relative">
+      <HeroMark />
+      <div className="ph-copy container-air relative">
         <p className="pill mb-6 bg-white/60 backdrop-blur" data-reveal>{eyebrow}</p>
-        <h1 className="max-w-[900px] text-[clamp(40px,6.4vw,80px)] font-normal leading-[1.02] tracking-[-0.02em]" data-reveal>
+        <h1 className="max-w-[820px] text-[clamp(40px,6.4vw,80px)] font-normal leading-[1.02] tracking-[-0.02em]" data-split>
           <Accent text={title} />
         </h1>
         <p className="mt-6 max-w-[620px] text-[18px] text-ink/75" data-reveal="0.1">{sub}</p>

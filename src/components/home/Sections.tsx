@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { clients, pillars, reasons, industries, work } from "@/lib/content";
 
-export function SectionHead({ eyebrow, children, center = true }: { eyebrow?: string; children: React.ReactNode; center?: boolean }) {
+/** `split` turns on the word-by-word reveal; leave it off inside client components that re-render. */
+export function SectionHead({ eyebrow, children, center = true, split = true }: { eyebrow?: string; children: React.ReactNode; center?: boolean; split?: boolean }) {
   return (
-    <div className={`mb-12 ${center ? "text-center mx-auto" : ""} max-w-[760px]`} data-reveal>
-      {eyebrow && <p className="mb-4 text-[13px] uppercase tracking-[0.14em] text-mute">{eyebrow}</p>}
-      <h2 className="text-[clamp(32px,4.6vw,56px)] font-normal leading-[1.05] tracking-[-0.02em]">{children}</h2>
+    <div className={`mb-12 ${center ? "text-center mx-auto" : ""} max-w-[760px]`}>
+      {eyebrow && <p className="mb-4 text-[13px] uppercase tracking-[0.14em] text-mute" data-reveal>{eyebrow}</p>}
+      <h2 className="text-[clamp(32px,4.6vw,56px)] font-normal leading-[1.05] tracking-[-0.02em]" data-split={split || undefined} data-reveal={split ? undefined : ""}>{children}</h2>
     </div>
   );
 }
@@ -18,7 +19,7 @@ export function LogoBar() {
       <div className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
         <div className="marquee-track flex w-max gap-16">
           {row.map((c, i) => (
-            <span key={i} className="whitespace-nowrap text-[22px] tracking-tight text-ink/45 transition-colors hover:text-ink">
+            <span key={i} className="whitespace-nowrap text-[22px] tracking-tight text-ink/60 transition-colors hover:text-ink">
               {c}
             </span>
           ))}
@@ -32,7 +33,7 @@ export function Pillars() {
   return (
     <section className="container-air py-[120px]">
       <SectionHead eyebrow="What we do for you">
-        Be <em className="cursive not-italic text-twilight-blue">found,</em> understood and chosen.
+        Be <em className="cursive not-italic text-brand-deep">found,</em> understood and chosen.
       </SectionHead>
       <div className="grid gap-6 md:grid-cols-3">
         {pillars.map((p, i) => (
@@ -44,26 +45,9 @@ export function Pillars() {
         ))}
       </div>
       <p className="mt-16 text-center text-[12px] uppercase tracking-[0.18em] text-mute" data-reveal>
-        Branding <span className="text-signal-blue">·</span> Web & Apps <span className="text-signal-blue">·</span> Marketing{" "}
-        <span className="text-signal-blue">·</span> SEO <span className="text-signal-blue">·</span> AI Search
+        Branding <span className="text-brand">·</span> Web & Apps <span className="text-brand">·</span> Marketing{" "}
+        <span className="text-brand">·</span> SEO <span className="text-brand">·</span> AI Search
       </p>
-    </section>
-  );
-}
-
-export function Problem() {
-  return (
-    <section className="bg-haze py-[120px]">
-      <div className="container-air grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-end">
-        <h2 className="text-[clamp(32px,4.6vw,56px)] leading-[1.05] tracking-[-0.02em]" data-reveal>
-          Most good businesses are <em className="cursive not-italic text-twilight-blue">invisible</em> to their own customers.
-        </h2>
-        <div className="space-y-4 text-[18px] text-ink/75" data-reveal="0.15">
-          <p>Not because the product is weak. Because professional branding and digital work has always been priced for large companies - and the affordable alternative is three freelancers who never talk to each other.</p>
-          <p>A logo that doesn&apos;t match the website. A website nobody finds. Marketing that sounds like it was written by someone who has never met your customer.</p>
-          <p className="text-ink">We built Creatoos to close that gap.</p>
-        </div>
-      </div>
     </section>
   );
 }
@@ -73,7 +57,7 @@ export function WorkPreview() {
     <section className="container-air py-[120px]">
       <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
         <SectionHead eyebrow="Selected work" center={false}>
-          Work we&apos;re happy to put our <em className="cursive not-italic text-twilight-blue">name</em> on.
+          Work we&apos;re happy to put our <em className="cursive not-italic text-brand-deep">name</em> on.
         </SectionHead>
         <Link href="/work" className="btn btn-ghost mb-12" data-reveal>All projects →</Link>
       </div>
@@ -102,7 +86,7 @@ export function Why() {
     <section className="bg-haze py-[120px]">
       <div className="container-air">
         <SectionHead eyebrow="Why Creatoos">
-          Why clients <em className="cursive not-italic text-twilight-blue">stay.</em>
+          Why clients <em className="cursive not-italic text-brand-deep">stay.</em>
         </SectionHead>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((r, i) => (

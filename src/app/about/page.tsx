@@ -43,7 +43,7 @@ export default function AboutPage() {
 
       <section className="container-air grid gap-12 py-[120px] md:grid-cols-[1fr_1.3fr]">
         <h2 className="text-[clamp(32px,4.6vw,56px)] leading-[1.05] tracking-[-0.02em]" data-reveal>
-          Why we <em className="cursive not-italic text-twilight-blue">exist</em>
+          Why we <em className="cursive not-italic text-brand-deep">exist</em>
         </h2>
         <div className="space-y-6 text-[18px] text-ink/75" data-reveal="0.1">
           <p>The market was failing growing businesses in two specific ways.</p>
@@ -59,7 +59,7 @@ export default function AboutPage() {
           <ul>
             {beliefs.map((b, i) => (
               <li key={b.title} data-reveal={i * 0.05} className="group grid gap-2 border-t border-line py-8 md:grid-cols-[1fr_1fr] md:items-baseline">
-                <h3 className="text-[clamp(24px,3vw,40px)] leading-[1.1] transition-colors group-hover:text-twilight-blue">{b.title}</h3>
+                <h3 className="text-[clamp(24px,3vw,40px)] leading-[1.1] transition-colors group-hover:text-brand-deep">{b.title}</h3>
                 <p className="text-[18px] text-ink/70">{b.body}</p>
               </li>
             ))}
@@ -68,7 +68,7 @@ export default function AboutPage() {
       </section>
 
       <section className="container-air py-[120px]">
-        <SectionHead eyebrow="The team">Who you&apos;ll <em className="cursive not-italic text-twilight-blue">work</em> with</SectionHead>
+        <SectionHead eyebrow="The team">Who you&apos;ll <em className="cursive not-italic text-brand-deep">work</em> with</SectionHead>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((t, i) => (
             <div key={t.name} data-reveal={i * 0.08} className="group">
@@ -90,7 +90,7 @@ export default function AboutPage() {
         <div className="container-air grid grid-cols-2 md:grid-cols-4">
           {stats.map((s, i) => (
             <div key={s.label} data-reveal={i * 0.08} className="border-line py-12 text-center [&:not(:last-child)]:md:border-r">
-              <p className="display text-[clamp(56px,7vw,96px)] text-twilight-blue">{s.n}</p>
+              <p className="display text-[clamp(56px,7vw,96px)] text-brand-deep">{s.n}</p>
               <p className="mt-2 text-[14px] text-mute">{s.label}</p>
             </div>
           ))}

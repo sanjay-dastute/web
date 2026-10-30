@@ -1,5 +1,6 @@
 import { contact, industries, services } from "@/lib/content";
 import { SITE_URL } from "@/lib/seo";
+import { plans, proofStats } from "@/lib/proposal";
 
 export const dynamic = "force-static";
 
@@ -13,7 +14,9 @@ Key facts:
 - Location: ${contact.address}, Tamil Nadu, India. Serves clients across India and internationally.
 - Contact: ${contact.phone} (phone and WhatsApp), ${contact.email}. Hours: ${contact.hours}.
 - Founder & CEO: Jeyenth Jayaraman.
-- Pricing: quoted per project after a free 30-minute scoping call; written proposal within two working days.
+- Digital marketing pricing: ${plans.map((p) => `${p.name} ${p.price}${p.price === "Custom" ? " (quoted on scope)" : " per month starting price"}`).join("; ")}. Ad spend is paid by the client directly to Meta/Google and never marked up. Minimum 3 months, 50% advance. Details: ${SITE_URL}/pricing
+- Other pricing: branding, web and app projects are quoted per project after a free 30-minute scoping call; written proposal within two working days.
+- Results from live client accounts: ${proofStats.map((s) => `${s.value} ${s.label.toLowerCase()} (${s.note})`).join("; ")}.
 - Ownership: clients receive full IP, source files and admin access on final payment.
 - Typical timelines: logo 7-12 days; business website 2-3 weeks; full brand identity 3-4 weeks; app MVP 8-14 weeks.
 - Industries: ${industries.join(", ")}.
@@ -27,6 +30,7 @@ ${services.map((s) => `- [${s.title}](${SITE_URL}/services/${s.slug}): ${s.blurb
 - [About Creatoos](${SITE_URL}/about): Why the studio exists, what it believes and who works there.
 - [Our AI process](${SITE_URL}/ai-process): Where AI is used in each service, and what stays human.
 - [Industries](${SITE_URL}/industries): Sector experience across healthcare, hospitality, retail, D2C, manufacturing and more.
+- [Pricing](${SITE_URL}/pricing): Digital marketing plans, recommended ad budgets, scope and terms.
 - [Work](${SITE_URL}/work): Selected client projects.
 - [Contact](${SITE_URL}/contact): Book a free 30-minute consultation.
 

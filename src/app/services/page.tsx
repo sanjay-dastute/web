@@ -41,7 +41,7 @@ export default function ServicesPage() {
               className="group card-haze flex min-h-[280px] flex-col justify-between p-7 transition-colors duration-500 hover:bg-ink hover:text-white">
               <div className="flex justify-between text-[13px]">
                 <span className="opacity-60">{String(i + 1).padStart(2, "0")}</span>
-                <span className="display text-[28px] text-twilight-blue transition-colors group-hover:text-white/40">{s.icon}</span>
+                <span className="display text-[28px] text-brand-deep transition-colors group-hover:text-white/40">{s.icon}</span>
               </div>
               <div>
                 <h2 className="text-[26px] leading-[1.1]">{s.title}</h2>
@@ -55,7 +55,7 @@ export default function ServicesPage() {
 
       <section className="bg-haze py-[120px]">
         <div className="container-air">
-          <SectionHead eyebrow="How services combine">Common starting <em className="cursive not-italic text-twilight-blue">points</em></SectionHead>
+          <SectionHead eyebrow="How services combine">Common starting <em className="cursive not-italic text-brand-deep">points</em></SectionHead>
           <div className="grid gap-4 md:grid-cols-2">
             {paths.map((p, i) => (
               <div key={p.title} data-reveal={(i % 2) * 0.08} className="rounded-[12px] bg-white p-7">

@@ -3,76 +3,115 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { gsap } from "gsap";
-
-const clouds = [
-  { w: 520, h: 160, top: "12%", left: "4%", dur: 60 },
-  { w: 420, h: 130, top: "26%", left: "58%", dur: 75 },
-  { w: 680, h: 200, top: "62%", left: "-6%", dur: 90 },
-  { w: 560, h: 170, top: "70%", left: "52%", dur: 70 },
-  { w: 300, h: 100, top: "42%", left: "30%", dur: 55 },
-];
+import { onIntroDone } from "@/components/Loader";
+import { heroStats } from "@/lib/content";
+import { LogoMark } from "@/components/Logo";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
-  const [Glass, setGlass] = useState<ComponentType | null>(null);
+  const [Glass, setGlass] = useState<ComponentType<{ active?: boolean }> | null>(null);
+  const [visible, setVisible] = useState(true);
 
-  // WebGL scene loads client-side only, after first paint.
+  // Pause the WebGL loop while the hero is off-screen (it otherwise renders every frame behind the pinned scenes).
   useEffect(() => {
-    import("@/components/GlassScene").then((m) => setGlass(() => m.default));
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting));
+    io.observe(root.current!);
+    return () => io.disconnect();
+  }, []);
+
+  // WebGL scene: desktop with a fine pointer only, loaded once the browser is idle so it never competes with
+  // first paint. Phones keep the SVG mark below (three.js costs seconds of CPU on a mid-range phone).
+  const [webgl, setWebgl] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia("(min-width: 768px) and (pointer: fine)").matches) return;
+    setWebgl(true);
+    const load = () => import("@/components/GlassScene").then((m) => setGlass(() => m.default));
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1200));
+    const id = idle(load);
+    return () => (window.cancelIdleCallback ?? window.clearTimeout)(id);
   }, []);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-      tl.from(".hero-line > span", { yPercent: 110, duration: 1.4, stagger: 0.12, delay: 0.15 })
-        .from(".hero-fade", { opacity: 0, y: 20, duration: 1, stagger: 0.1 }, "-=0.9")
-        .from(".hero-glass", { opacity: 0, scale: 0.85, duration: 2 }, 0);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let off: (() => void) | void;
+    const ctx = gsap.context((self) => {
+      gsap.set([".hero-line > span", ".hero-fade", ".hero-glass"], { autoAlpha: 0 });
 
-      // Parallax out on scroll: sculpture drifts up, copy fades.
-      gsap.to(".hero-glass", { yPercent: -25, ease: "none", scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true } });
-      gsap.to(".hero-copy", { yPercent: 30, opacity: 0, ease: "none", scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true } });
+      // Registered on the context so its selectors stay scoped and it reverts with everything else.
+      const play = self.add("play", () => {
+        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        tl.fromTo(".hero-glass", { autoAlpha: 0, scale: 0.6, rotate: -8 }, { autoAlpha: 1, scale: 1, rotate: 0, duration: 2.2 }, 0)
+          .fromTo(".hero-line > span", { autoAlpha: 1, yPercent: 110 }, { yPercent: 0, duration: 1.4, stagger: 0.12 }, 0.2)
+          .fromTo(".hero-fade", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08 }, 0.9);
+        gsap.utils.toArray<HTMLElement>(".hero-count").forEach((el) => {
+          const end = Number(el.dataset.to);
+          const obj = { v: 0 };
+          tl.to(obj, { v: end, duration: 2, ease: "power3.out", onUpdate: () => { el.textContent = (end % 1 ? obj.v.toFixed(1) : Math.round(obj.v).toLocaleString("en-IN")); } }, 1.1);
+        });
+      });
+      off = onIntroDone(play as () => void);
+
+      // Scroll away: camera pushes into the mark while the headline parts.
+      const out = { trigger: root.current, start: "top top", end: "bottom top", scrub: true };
+      gsap.to(".hero-glass", { scale: 1.9, yPercent: 10, ease: "none", scrollTrigger: out });
+      gsap.to(".hero-top", { yPercent: -60, autoAlpha: 0, ease: "none", scrollTrigger: out });
+      gsap.to(".hero-bottom", { yPercent: 40, autoAlpha: 0, ease: "none", scrollTrigger: out });
     }, root);
-    return () => ctx.revert();
+    return () => { off?.(); ctx.revert(); };
   }, []);
 
   return (
-    <section ref={root} className="sky relative flex min-h-[100svh] items-center overflow-hidden pt-[var(--nav-h)]">
-      <div className="clouds" aria-hidden>
-        {clouds.map((c, i) => (
-          <span key={i} style={{ width: c.w, height: c.h, top: c.top, left: c.left, animationDuration: `${c.dur}s`, animationDirection: i % 2 ? "reverse" : "normal" }} />
-        ))}
+    <section ref={root} className="sky relative flex min-h-[100svh] flex-col overflow-hidden pt-[var(--nav-h)]">
+      {/* Brand glow behind the glass so the refraction picks up colour. */}
+      <div className="pointer-events-none absolute left-1/2 top-[62%] h-[50vmin] w-[50vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[80px]" style={{ background: "var(--gradient-brand)" }} aria-hidden />
+
+      {/* Mobile: its own slot between headline and copy. Desktop: floats under the headline. */}
+      <div className="hero-glass relative order-2 h-[30svh] md:absolute md:inset-x-0 md:top-[38%] md:bottom-[12%] md:h-auto" aria-hidden>
+        {webgl ? (
+          Glass && <Glass active={visible} />
+        ) : (
+          // Phones / touch: the gradient mark as SVG with a gentle CSS float - no WebGL.
+          <div className="hero-float grid h-full place-items-center">
+            <LogoMark className="h-[70%] w-auto drop-shadow-[0_20px_40px_rgba(255,33,79,.35)]" gradient />
+          </div>
+        )}
       </div>
 
-      <div className="hero-glass absolute inset-0 md:left-[30%]" aria-hidden>
-        {Glass && <Glass />}
-      </div>
-
-      <div className="hero-copy container-air relative w-full py-20">
-        <p className="hero-fade pill mb-6 bg-white/60 backdrop-blur">Creative & technology studio · Coimbatore</p>
-        <h1 className="max-w-[820px] text-[clamp(44px,7vw,88px)] font-normal leading-[1] tracking-[-0.02em]">
-          <span className="hero-line line-mask"><span>Brands built</span></span>
+      <div className="hero-top container-air relative order-1 pt-[clamp(24px,5vh,56px)] text-center">
+        <p className="hero-fade pill bg-white/70 backdrop-blur">Creative &amp; technology studio · Coimbatore</p>
+        <h1 className="mx-auto mt-6 max-w-[1100px] text-[clamp(44px,8.4vw,128px)] font-medium leading-[0.98] tracking-[-0.035em]">
+          <span className="hero-line line-mask"><span>Brands built to be</span></span>
           <span className="hero-line line-mask">
-            <span>to be <em className="cursive not-italic text-twilight-blue text-[1.15em]">understood.</em></span>
+            <span>
+              <em className="cursive not-italic text-gradient-brand text-[1.12em]">understood.</em>{" "}
+              <span className="display text-[1.05em]">Fast.</span>
+            </span>
           </span>
-          <span className="hero-line line-mask"><span className="display text-[1.35em] leading-[0.9]">Fast.</span></span>
         </h1>
-        <p className="hero-fade mt-8 max-w-[520px] text-[18px] leading-[1.5] text-ink/75">
-          Branding, websites, apps, marketing and search - with AI across our production process, so the work ships
-          sooner and gets tested harder.
-        </p>
-        <div className="hero-fade mt-8 flex flex-wrap gap-3">
-          <Link href="/contact" className="btn btn-ink">Start a Project →</Link>
-          <Link href="/work" className="btn btn-ghost btn-glass">See Our Work</Link>
-        </div>
       </div>
 
-      <div className="hero-fade absolute inset-x-0 bottom-6">
-        <div className="container-air flex flex-wrap gap-x-8 gap-y-2 text-[13px] text-ink/70">
-          {/* TODO: replace bracketed figures with verified numbers. */}
-          <span>[ X ]+ projects delivered</span>
-          <span>[ X ] years in operation</span>
-          <span>Coimbatore-based, serving all of India</span>
+      <div className="hero-bottom container-air relative order-3 mt-auto grid gap-6 pb-8 md:grid-cols-[1fr_auto] md:items-end md:gap-8">
+        <div>
+          <p className="hero-fade max-w-[440px] text-[17px] leading-[1.5] text-ink/75">
+            Branding, websites, apps, marketing and search, with AI across our production process so the work ships
+            sooner and gets tested harder.
+          </p>
+          <div className="hero-fade mt-6 flex flex-wrap gap-3">
+            <Link href="/contact" className="btn btn-brand">Start a Project →</Link>
+            <Link href="/work" className="btn btn-ghost btn-glass">See Our Work</Link>
+          </div>
         </div>
+        <dl className="grid grid-cols-3 gap-4 md:flex md:gap-x-10">
+          {heroStats.map((s) => (
+            <div key={s.label} className="hero-fade">
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="text-[clamp(24px,3.2vw,40px)] font-medium leading-none tracking-[-0.03em]">
+                {s.prefix}<span className="hero-count" data-to={s.value}>{s.value.toLocaleString("en-IN")}</span>{s.suffix}
+              </dd>
+              <dd className="mt-2 text-[12px] leading-tight text-ink/60 md:text-[13px]">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

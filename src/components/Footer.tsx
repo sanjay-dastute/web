@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { contact, services } from "@/lib/content";
+import { Logo } from "@/components/Logo";
+import { LOCKUP_WORD_PATH } from "@/lib/logo";
 
 const company = [
   { label: "About Us", href: "/about" },
   { label: "Our Process", href: "/ai-process" },
   { label: "Work", href: "/work" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Industries", href: "/industries" },
   { label: "Contact", href: "/contact" },
 ];
@@ -14,7 +17,7 @@ export default function Footer() {
     <footer className="overflow-hidden bg-white pt-[80px]" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
       <div className="container-air grid gap-10 text-[14px] sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_0.8fr_1.2fr]">
         <div>
-          <p className="text-[22px]">creatoos<span className="text-twilight-blue">.</span></p>
+          <Logo className="h-[30px] w-auto" />
           <p className="mt-4 max-w-[300px] text-ink/70">
             A creative and technology studio in Coimbatore. We build brands, products and marketing systems for growing businesses - with an AI-assisted process that cuts turnaround without cutting quality.
           </p>
@@ -22,13 +25,13 @@ export default function Footer() {
         <div>
           <p className="mb-4 text-mute">Services</p>
           <ul className="space-y-2">
-            {services.map((s) => <li key={s.slug}><Link href={`/services/${s.slug}`} className="hover:text-twilight-blue">{s.title}</Link></li>)}
+            {services.map((s) => <li key={s.slug}><Link href={`/services/${s.slug}`} className="hover:text-brand-deep">{s.title}</Link></li>)}
           </ul>
         </div>
         <div>
           <p className="mb-4 text-mute">Company</p>
           <ul className="space-y-2">
-            {company.map((c) => <li key={c.href}><Link href={c.href} className="hover:text-twilight-blue">{c.label}</Link></li>)}
+            {company.map((c) => <li key={c.href}><Link href={c.href} className="hover:text-brand-deep">{c.label}</Link></li>)}
           </ul>
         </div>
         <div>
@@ -43,9 +46,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="display mt-16 select-none text-center text-[clamp(80px,22vw,300px)] leading-[0.8] text-haze" aria-hidden>
-        Creatoos
-      </div>
+      {/* Oversized wordmark as artwork (the logo path, not text) in a pale tint. */}
+      <svg viewBox="300 50 1400 280" className="mx-auto mt-16 block w-[min(92vw,1200px)] select-none" aria-hidden>
+        <path d={LOCKUP_WORD_PATH} fill="var(--color-brand-petal)" fillRule="evenodd" />
+      </svg>
 
       <div className="container-air flex flex-wrap justify-between gap-4 border-t border-line py-6 text-[13px] text-mute">
         <span>© {new Date().getFullYear()} Creatoos. All rights reserved. Serving across India.</span>

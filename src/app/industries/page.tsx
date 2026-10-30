@@ -33,7 +33,7 @@ export default function IndustriesPage() {
             <li key={x.t} data-reveal={(i % 2) * 0.06}
               className="group grid gap-4 border-t border-line py-10 last:border-b md:grid-cols-[80px_1fr_1.2fr] md:items-baseline">
               <span className="text-[13px] text-mute">{String(i + 1).padStart(2, "0")}</span>
-              <h2 className="text-[clamp(28px,3.4vw,44px)] leading-[1.05] transition-all duration-500 group-hover:translate-x-2 group-hover:text-twilight-blue">{x.t}</h2>
+              <h2 className="text-[clamp(28px,3.4vw,44px)] leading-[1.05] transition-all duration-500 group-hover:translate-x-2 group-hover:text-brand-deep">{x.t}</h2>
               <p className="text-[17px] text-ink/70">{x.b}</p>
             </li>
           ))}
