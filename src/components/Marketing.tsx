@@ -10,14 +10,14 @@ import LaunchTimeline from "@/components/motion/LaunchTimeline";
 import PlanSwitcher from "@/components/motion/PlanSwitcher";
 import AdBudgetPlanner from "@/components/motion/AdBudgetPlanner";
 import {
-  adBudget, clientSectors, funnel, idealFor, launchNote, launchPromises,
+  adBudget, funnel, idealFor, launchNote, launchPromises,
   nextSteps, objectives, planNote, planRows, plans, proofStats, scopeClarity, terms,
 } from "@/lib/proposal";
 
 const eyebrow = "mb-4 text-[13px] uppercase tracking-[0.14em] text-mute";
 
-/** Results from live client accounts, plus the sectors they come from. */
-export function ProofStats({ sectors = true }: { sectors?: boolean }) {
+/** Results from live client accounts. */
+export function ProofStats() {
   return (
     <section className="bg-brand-petal py-[120px]">
       <div className="container-air">
@@ -34,16 +34,6 @@ export function ProofStats({ sectors = true }: { sectors?: boolean }) {
             </div>
           ))}
         </dl>
-        {sectors && (
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {clientSectors.map((c, i) => (
-              <div key={c.title} data-reveal={i * 0.06} className="border-t border-brand/30 pt-4">
-                <p className="text-[18px]">{c.title}</p>
-                <p className="mt-1 text-[14px] text-ink/70">{c.body}</p>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );

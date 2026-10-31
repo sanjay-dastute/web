@@ -44,10 +44,6 @@ export function Pillars() {
           </div>
         ))}
       </div>
-      <p className="mt-16 text-center text-[12px] uppercase tracking-[0.18em] text-mute" data-reveal>
-        Branding <span className="text-brand">·</span> Web & Apps <span className="text-brand">·</span> Marketing{" "}
-        <span className="text-brand">·</span> SEO <span className="text-brand">·</span> AI Search
-      </p>
     </section>
   );
 }

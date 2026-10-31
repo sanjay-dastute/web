@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { gsap } from "gsap";
 import { onIntroDone } from "@/components/Loader";
-import { heroStats } from "@/lib/content";
 import { LogoMark } from "@/components/Logo";
 
 export default function Hero() {
@@ -43,11 +42,6 @@ export default function Hero() {
         tl.fromTo(".hero-glass", { autoAlpha: 0, scale: 0.6, rotate: -8 }, { autoAlpha: 1, scale: 1, rotate: 0, duration: 2.2 }, 0)
           .fromTo(".hero-line > span", { autoAlpha: 1, yPercent: 110 }, { yPercent: 0, duration: 1.4, stagger: 0.12 }, 0.2)
           .fromTo(".hero-fade", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08 }, 0.9);
-        gsap.utils.toArray<HTMLElement>(".hero-count").forEach((el) => {
-          const end = Number(el.dataset.to);
-          const obj = { v: 0 };
-          tl.to(obj, { v: end, duration: 2, ease: "power3.out", onUpdate: () => { el.textContent = (end % 1 ? obj.v.toFixed(1) : Math.round(obj.v).toLocaleString("en-IN")); } }, 1.1);
-        });
       });
       off = onIntroDone(play as () => void);
 
@@ -101,17 +95,6 @@ export default function Hero() {
             <Link href="/work" className="btn btn-ghost btn-glass">See Our Work</Link>
           </div>
         </div>
-        <dl className="grid grid-cols-3 gap-4 md:flex md:gap-x-10">
-          {heroStats.map((s) => (
-            <div key={s.label} className="hero-fade">
-              <dt className="sr-only">{s.label}</dt>
-              <dd className="text-[clamp(24px,3.2vw,40px)] font-medium leading-none tracking-[-0.03em]">
-                {s.prefix}<span className="hero-count" data-to={s.value}>{s.value.toLocaleString("en-IN")}</span>{s.suffix}
-              </dd>
-              <dd className="mt-2 text-[12px] leading-tight text-ink/60 md:text-[13px]">{s.label}</dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

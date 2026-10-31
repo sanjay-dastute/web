@@ -43,7 +43,7 @@ export default function PricingPage() {
       />
       <Plans />
       <AdBudget />
-      <ProofStats sectors={false} />
+      <ProofStats />
       <ScopeClarity />
       <Terms />
       <NextSteps />
