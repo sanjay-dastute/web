@@ -57,7 +57,6 @@ export default function Hero() {
   return (
     <section ref={root} className="sky relative flex min-h-[100svh] flex-col overflow-hidden pt-[var(--nav-h)]">
       {/* Brand glow behind the glass so the refraction picks up colour. */}
-      <div className="pointer-events-none absolute left-1/2 top-[62%] h-[50vmin] w-[50vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[80px]" style={{ background: "var(--gradient-brand)" }} aria-hidden />
 
       {/* Mobile: its own slot between headline and copy. Desktop: floats under the headline. */}
       <div className="hero-glass relative order-2 h-[30svh] md:absolute md:inset-x-0 md:top-[38%] md:bottom-[12%] md:h-auto" aria-hidden>

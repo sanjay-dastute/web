@@ -69,7 +69,7 @@ export default function Loader() {
         <path className="intro-word" d={LOCKUP_WORD_PATH} fill="var(--color-ink)" fillRule="evenodd" style={{ clipPath: "inset(0 100% 0 0)" }} />
         <defs>
           <linearGradient id="intro-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ff4a4a" />
+            <stop offset="0%" stopColor="#ff6b88" />
             <stop offset="55%" stopColor="#ff214f" />
             <stop offset="100%" stopColor="#d6103c" />
           </linearGradient>

@@ -1,5 +1,5 @@
 import Hero from "@/components/home/Hero";
-import { LogoBar, Pillars, WorkPreview, Why, Industries } from "@/components/home/Sections";
+import { LogoBar, WorkPreview, Why, Industries } from "@/components/home/Sections";
 import Story from "@/components/home/Story";
 import { Plans, ProofStats } from "@/components/Marketing";
 import ServicesShowcase from "@/components/home/ServicesShowcase";
@@ -19,7 +19,6 @@ export default function Home() {
       <Story />
       <ProofStats />
       <LogoBar />
-      <Pillars />
       <ServicesShowcase />
       <AIDifference />
       <IdeaFunnel />

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { clients, pillars, reasons, industries, work } from "@/lib/content";
+import { clients, reasons, industries, work } from "@/lib/content";
 
 /** `split` turns on the word-by-word reveal; leave it off inside client components that re-render. */
 export function SectionHead({ eyebrow, children, center = true, split = true }: { eyebrow?: string; children: React.ReactNode; center?: boolean; split?: boolean }) {
@@ -28,26 +28,6 @@ export function LogoBar() {
     </section>
   );
 }
-
-export function Pillars() {
-  return (
-    <section className="container-air py-[120px]">
-      <SectionHead eyebrow="What we do for you">
-        Be <em className="cursive not-italic text-brand-deep">found,</em> understood and chosen.
-      </SectionHead>
-      <div className="grid gap-6 md:grid-cols-3">
-        {pillars.map((p, i) => (
-          <div key={p.title} data-reveal={i * 0.1} className="border-t border-ink pt-6">
-            <p className="mb-6 text-[13px] text-mute">0{i + 1}</p>
-            <h3 className="mb-3 text-[32px] leading-[1.1]">{p.title}</h3>
-            <p className="text-ink/70">{p.body}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export function WorkPreview() {
   return (
     <section className="container-air py-[120px]">

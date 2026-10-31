@@ -11,7 +11,7 @@ export default function OgImage() {
       <div
         style={{
           width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between",
-          padding: 72, background: "linear-gradient(180deg, #FF7A7A 0%, #FFB3B3 45%, #fff3f3 80%, #ffffff 100%)",
+          padding: 72, background: "linear-gradient(180deg, #FFDCE4 0%, #FFEBF0 45%, #fff4f6 80%, #ffffff 100%)",
           color: "#1b1b1b", fontFamily: "sans-serif",
         }}
       >

@@ -38,7 +38,7 @@ function Mark() {
         <mesh geometry={geometry}>
           {/* Glossy candy finish in the logo red. Transmission glass read as near-black over the
               transparent canvas, so the depth comes from clearcoat and the studio lights instead. */}
-          <meshPhysicalMaterial color="#ff214f" roughness={0.22} metalness={0.05} clearcoat={1} clearcoatRoughness={0.08} sheen={0.6} sheenColor="#ff4a4a" iridescence={0.25} />
+          <meshPhysicalMaterial color="#ff214f" roughness={0.22} metalness={0.05} clearcoat={1} clearcoatRoughness={0.08} sheen={0.6} sheenColor="#ff6b88" iridescence={0.25} />
         </mesh>
       </group>
     </Float>
@@ -53,13 +53,13 @@ export default function GlassScene({ active = true }: { active?: boolean }) {
       {/* Direct lights so the mark never renders unlit if the environment map fails (seen on software GL). */}
       <ambientLight intensity={0.9} />
       <directionalLight position={[3, 4, 5]} intensity={2.2} />
-      <directionalLight position={[-4, -2, 3]} intensity={0.8} color="#ff4a4a" />
+      <directionalLight position={[-4, -2, 3]} intensity={0.8} color="#ff6b88" />
       {/* Studio-light environment built in-scene - no external HDR fetch. */}
       <Environment resolution={256}>
         <Lightformer intensity={3} position={[0, 4, -6]} scale={[12, 3, 1]} color="#ffffff" />
-        <Lightformer intensity={2} position={[-6, 0, -2]} rotation-y={Math.PI / 2} scale={[10, 4, 1]} color="#ff4a4a" />
+        <Lightformer intensity={2} position={[-6, 0, -2]} rotation-y={Math.PI / 2} scale={[10, 4, 1]} color="#ff6b88" />
         <Lightformer intensity={2.5} position={[6, -1, -2]} rotation-y={-Math.PI / 2} scale={[10, 4, 1]} color="#ff214f" />
-        <Lightformer intensity={1.5} position={[0, -5, 2]} rotation-x={-Math.PI / 2} scale={[10, 10, 1]} color="#fff3f3" />
+        <Lightformer intensity={1.5} position={[0, -5, 2]} rotation-x={-Math.PI / 2} scale={[10, 10, 1]} color="#fff4f6" />
       </Environment>
     </Canvas>
   );

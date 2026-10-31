@@ -13,9 +13,9 @@
   --color-brand: #ff214f;
   --color-brand-deep: #d6103c;
   --color-brand-ember: #a80c30;
-  --color-brand-glow: #ff4a4a;
-  --color-brand-blush: #ffe1e1;
-  --color-brand-petal: #fff3f3;
+  --color-brand-glow: #ff6b88;
+  --color-brand-blush: #ffe3e9;
+  --color-brand-petal: #fff4f6;
 
   --color-mute: #6b6f76;
   --color-line: rgba(27, 27, 27, 0.12);
@@ -36,8 +36,8 @@
   --nav-h: 72px;
 
   /* Logo gradients - light coral into the mark red into ember. */
-  --gradient-brand: linear-gradient(135deg, #ff4a4a 0%, #ff214f 50%, #d6103c 100%);
-  --gradient-brand-soft: linear-gradient(180deg, #fff3f3 0%, #ffe1e1 100%);
+  --gradient-brand: linear-gradient(135deg, #ff6b88 0%, #ff214f 50%, #d6103c 100%);
+  --gradient-brand-soft: linear-gradient(180deg, #fff4f6 0%, #ffe3e9 100%);
 }
 
 html { background: #ffffff; color: var(--color-ink); }
@@ -90,11 +90,11 @@ body {
 }
 }
 
-/* Red-tinted backdrop for full-bleed atmospheric sections. */
+/* Light blush backdrop for full-bleed atmospheric sections. */
 .sky {
   background:
     radial-gradient(120% 70% at 50% 110%, #ffffff 0%, rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, #FF7A7A 0%, #FFB3B3 45%, #fff3f3 80%, #ffffff 100%);
+    linear-gradient(180deg, #FFDCE4 0%, #FFEBF0 45%, #fff4f6 80%, #ffffff 100%);
 }
 .clouds { position: absolute; inset: -10% -20%; pointer-events: none; }
 .clouds span {
@@ -132,7 +132,7 @@ body {
 .glow-ring { isolation: isolate; }
 .glow-ring::before {
   content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit;
-  background: conic-gradient(from var(--glow-a), #ff4a4a, #ff214f, #a80c30, #ff214f, #ff4a4a);
+  background: conic-gradient(from var(--glow-a), #ff6b88, #ff214f, #a80c30, #ff214f, #ff6b88);
   animation: glow-spin 4s linear infinite;
 }
 @keyframes glow-spin { to { --glow-a: 360deg; } }

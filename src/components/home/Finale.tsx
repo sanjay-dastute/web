@@ -37,7 +37,7 @@ export default function Finale() {
           <svg viewBox={MARK_VIEWBOX} className="absolute inset-[14%] overflow-visible">
             <defs>
               <linearGradient id="fn-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#ff4a4a" />
+                <stop offset="0%" stopColor="#ff6b88" />
                 <stop offset="55%" stopColor="#ff214f" />
                 <stop offset="100%" stopColor="#d6103c" />
               </linearGradient>
