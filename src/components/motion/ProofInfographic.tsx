@@ -6,6 +6,12 @@ import { proofStats } from "@/lib/proposal";
 
 const [views, leads, cpl, ctr, growth, chat] = proofStats;
 
+// Views bar heights (an easing curve, for shape only) and the arrow traced over their tops.
+const bars = Array.from({ length: 11 }, (_, k) => 24 + 116 * Math.pow(k / 10, 1.6));
+const pts = bars.map((h, k) => [k * 40 + 12, 160 - h - 18] as const);
+const tip = [pts[10][0] + 14, pts[10][1] - 12] as const;
+const arrow = "M" + [...pts, tip].map(([x, y]) => `${x} ${y}`).join(" L");
+
 /**
  * The six proof stats as an infographic. Every visual is drawn to scale from the figure it explains
  * (blocks of 100K views, dots of 10 leads, 10 lit cells in 100, circles sized by follower count), and
@@ -33,7 +39,7 @@ export default function ProofInfographic() {
 
   return (
     <dl ref={root} className="grid gap-4 lg:grid-cols-12">
-      {/* Views: 11 blocks of 100K. */}
+      {/* Views: bar graph of 11 bars (100K each) with a rising arrow over the tops. */}
       <div className={`${tile} justify-between bg-ink text-white lg:col-span-7`}>
         <div>
           <dd className="text-[clamp(48px,6vw,88px)] font-medium leading-none tracking-[-0.03em]"><CountUp text={views.value} /></dd>
@@ -41,16 +47,31 @@ export default function ProofInfographic() {
           <dd className="mt-1 text-[14px] text-white/60">{views.note}</dd>
         </div>
         <dd aria-hidden className="mt-10">
-          <div className="flex h-24 items-end gap-1.5 sm:gap-2">
-            {Array.from({ length: 11 }, (_, i) => (
-              <span
-                key={i}
-                className="flex-1 origin-bottom rounded-[6px] transition-transform duration-700 ease-out"
-                style={{ height: `${30 + i * 7}%`, background: "var(--gradient-brand)", transform: on ? "scaleY(1)" : "scaleY(0)", ...d(i, 70) }}
+          <svg viewBox="0 0 440 170" className="block w-full overflow-visible">
+            <defs>
+              <linearGradient id="pi-bar" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#ff6b88" /><stop offset="100%" stopColor="#d6103c" />
+              </linearGradient>
+            </defs>
+            <line x1="0" y1="160" x2="440" y2="160" stroke="rgba(255,255,255,.2)" />
+            {bars.map((h, k) => (
+              <rect
+                key={k} x={k * 40} y={160 - h} width="24" height={h} rx="4" fill="url(#pi-bar)"
+                className="transition-transform duration-700 ease-out"
+                style={{ transformBox: "fill-box", transformOrigin: "bottom", transform: on ? "scaleY(1)" : "scaleY(0)", ...d(k, 70) }}
               />
             ))}
-          </div>
-          <p className="mt-3 text-[12px] text-white/50">Each block = 100K views</p>
+            {/* Arrow rides just above the bar tops and draws itself once the bars are up. */}
+            <path
+              d={arrow} pathLength={1} fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+              strokeDasharray="1" style={{ strokeDashoffset: on ? 0 : 1, transition: "stroke-dashoffset 1.4s ease-out .7s" }}
+            />
+            <path
+              d={`M${tip[0] - 14} ${tip[1] - 2} L${tip[0]} ${tip[1]} L${tip[0] - 4} ${tip[1] + 14}`} fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+              style={{ opacity: on ? 1 : 0, transition: "opacity .3s 2s" }}
+            />
+          </svg>
+          <p className="mt-3 text-[12px] text-white/50">Each bar = 100K views</p>
         </dd>
       </div>
 
