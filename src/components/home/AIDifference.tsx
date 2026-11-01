@@ -4,14 +4,17 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-/** Poster-scale statement that slides across on scroll, then the AI positioning line. */
+/** Poster-scale statement whose two lines slide in from opposite sides and meet in the centre, then the AI positioning line. */
 export default function AIDifference() {
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(".ai-row-a", { xPercent: 0 }, { xPercent: -14, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true } });
-      gsap.fromTo(".ai-row-b", { xPercent: -14 }, { xPercent: 0, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true } });
+      // Lines start off-screen on opposite sides and land centred as the headline reaches mid-screen.
+      const st = { trigger: ".ai-rows", start: "top bottom", end: "center center", scrub: 0.6 };
+      gsap.fromTo(".ai-row-a", { x: "-100vw" }, { x: 0, ease: "power2.out", scrollTrigger: st });
+      gsap.fromTo(".ai-row-b", { x: "100vw" }, { x: 0, ease: "power2.out", scrollTrigger: st });
     }, root);
     return () => ctx.revert();
   }, []);
@@ -19,7 +22,7 @@ export default function AIDifference() {
   return (
     <section ref={root} className="overflow-hidden py-[120px]">
       {/* Full-bleed: headline and content share the same edge padding. */}
-      <div className="display select-none [font-family:var(--font-oswald)] font-semibold tracking-[-0.01em] whitespace-nowrap px-[max(20px,4vw)] text-[clamp(56px,10vw,160px)]" aria-hidden>
+      <div className="ai-rows display select-none text-center [font-family:var(--font-oswald)] font-semibold tracking-[-0.01em] whitespace-nowrap px-[max(20px,4vw)] text-[clamp(40px,10vw,160px)]" aria-hidden>
         <div className="ai-row-a">Made by humans.</div>
         <div className="ai-row-b text-brand-deep">Speed up by AI.</div>
       </div>
