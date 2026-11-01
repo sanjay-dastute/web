@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { SectionHead } from "@/components/home/Sections";
 import { Accent } from "@/components/PageHero";
-import CountUp from "@/components/motion/CountUp";
-import GrowthLine from "@/components/motion/GrowthLine";
+import ProofInfographic from "@/components/motion/ProofInfographic";
 import Tilt from "@/components/motion/Tilt";
 import ServicesOrbit from "@/components/motion/ServicesOrbit";
 import ScopeTabs from "@/components/motion/ScopeTabs";
@@ -11,7 +10,7 @@ import PlanSwitcher from "@/components/motion/PlanSwitcher";
 import AdBudgetPlanner from "@/components/motion/AdBudgetPlanner";
 import {
   adBudget, funnel, idealFor, launchNote, launchPromises,
-  nextSteps, objectives, planNote, planRows, plans, proofStats, scopeClarity, terms,
+  nextSteps, objectives, planNote, planRows, plans, scopeClarity, terms,
 } from "@/lib/proposal";
 
 const eyebrow = "mb-4 text-[13px] uppercase tracking-[0.14em] text-mute";
@@ -24,16 +23,7 @@ export function ProofStats() {
         <SectionHead eyebrow="Proof from live client accounts" center={false}>
           Numbers, not <Accent text="*adjectives.*" />
         </SectionHead>
-        <dl className="grid gap-px overflow-hidden rounded-[14px] bg-brand-blush sm:grid-cols-2 lg:grid-cols-3">
-          {proofStats.map((s, i) => (
-            <div key={s.label} data-reveal={(i % 3) * 0.08} className="bg-white p-7">
-              <dd className="text-gradient-brand text-[clamp(40px,5vw,64px)] font-medium leading-none tracking-[-0.03em]"><CountUp text={s.value} /></dd>
-              <dt className="mt-4 text-[18px]">{s.label}</dt>
-              <dd className="mt-1 text-[14px] text-mute">{s.note}</dd>
-              {s.value.endsWith("x") && <dd><GrowthLine label={`Follower growth curve: ${s.note}`} /></dd>}
-            </div>
-          ))}
-        </dl>
+        <ProofInfographic />
       </div>
     </section>
   );
