@@ -10,6 +10,11 @@ const [views, leads, cpl, ctr, growth, chat] = proofStats;
 const bars = Array.from({ length: 11 }, (_, k) => 24 + 116 * Math.pow(k / 10, 1.6));
 const pts = bars.map((h, k) => [k * 40 + 12, 160 - h - 18] as const);
 const tip = [pts[10][0] + 14, pts[10][1] - 12] as const;
+// Leads curve (shape only) drawn as an area chart; the arrowhead points along its last segment.
+const leadPts = Array.from({ length: 9 }, (_, k) => [k * 46 + 6, 128 - 108 * Math.pow(k / 8, 1.5) + (k % 2 ? 6 : 0)] as const);
+const leadLine = "M" + leadPts.map(([x, y]) => `${x} ${y}`).join(" L");
+const [lx, ly] = leadPts[8];
+const leadHead = `M${lx - 13} ${ly + 1} L${lx} ${ly} L${lx - 3} ${ly + 13}`;
 const arrow = "M" + [...pts, tip].map(([x, y]) => `${x} ${y}`).join(" L");
 
 /**
@@ -33,9 +38,9 @@ export default function ProofInfographic() {
   const tile = "rounded-[18px] p-7 flex flex-col";
   const big = "text-gradient-brand text-[clamp(40px,5vw,64px)] font-medium leading-none tracking-[-0.03em]";
 
-  // Follower circles: area proportional to count, so radius scales with the square root.
-  const rBig = 64;
-  const rSmall = rBig * Math.sqrt(50 / 2849);
+  // Follower bars, heights proportional to count.
+  const gBig = 140;
+  const gSmall = Math.max(2, gBig * (50 / 2849));
 
   return (
     <dl ref={root} className="grid gap-4 lg:grid-cols-12">
@@ -75,18 +80,27 @@ export default function ProofInfographic() {
         </dd>
       </div>
 
-      {/* Leads: 100 dots of 10. */}
+      {/* Leads: rising area chart ending in an arrow. */}
       <div className={`${tile} bg-white lg:col-span-5`}>
         <dd className={big}><CountUp text={leads.value} /></dd>
         <dt className="mt-4 text-[18px]">{leads.label}</dt>
         <dd className="mt-1 text-[14px] text-mute">{leads.note}</dd>
         <dd aria-hidden className="mt-auto pt-8">
-          <div className="grid gap-1.5" style={{ gridTemplateColumns: "repeat(20, minmax(0, 1fr))" }}>
-            {Array.from({ length: 100 }, (_, i) => (
-              <span key={i} className="aspect-square rounded-full bg-brand transition-all duration-500" style={{ opacity: on ? 1 : 0.12, transform: on ? "scale(1)" : "scale(.4)", ...d(i, 12) }} />
-            ))}
-          </div>
-          <p className="mt-3 text-[12px] text-mute">Each dot = 10 leads</p>
+          <svg viewBox="0 0 400 140" className="block w-full overflow-visible">
+            <defs>
+              <linearGradient id="pi-area" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#ff214f" stopOpacity=".35" /><stop offset="100%" stopColor="#ff214f" stopOpacity="0" />
+              </linearGradient>
+              <clipPath id="pi-reveal"><rect x="0" y="0" height="140" width="400" style={{ transformBox: "fill-box", transformOrigin: "left", transform: on ? "scaleX(1)" : "scaleX(0)", transition: "transform 1.6s ease-out" }} /></clipPath>
+            </defs>
+            {[35, 70, 105].map((y) => <line key={y} x1="0" x2="400" y1={y} y2={y} stroke="var(--color-line)" strokeDasharray="3 5" />)}
+            <line x1="0" y1="138" x2="400" y2="138" stroke="var(--color-line)" />
+            <g clipPath="url(#pi-reveal)">
+              <path d={`${leadLine} L${leadPts[leadPts.length - 1][0]} 138 L0 138 Z`} fill="url(#pi-area)" />
+              <path d={leadLine} fill="none" stroke="var(--color-brand)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <path d={leadHead} fill="none" stroke="var(--color-brand)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: on ? 1 : 0, transition: "opacity .3s 1.5s" }} />
+          </svg>
         </dd>
       </div>
 
@@ -112,28 +126,26 @@ export default function ProofInfographic() {
         </dd>
       </div>
 
-      {/* Growth: circles sized by follower count. */}
+      {/* Growth: two bars to scale with an arrow between. */}
       <div className={`${tile} bg-white lg:col-span-4`}>
         <dd className={big}><CountUp text={growth.value} /></dd>
         <dt className="mt-4 text-[18px]">{growth.label}</dt>
         <dd className="mt-1 text-[14px] text-mute">{growth.note}</dd>
-        <dd aria-hidden className="mt-auto flex items-end justify-center gap-6 pt-8">
-          <span className="flex flex-col items-center gap-2">
-            <svg width={rSmall * 2 + 2} height={rSmall * 2 + 2}><circle cx={rSmall + 1} cy={rSmall + 1} r={rSmall} fill="var(--color-ink)" /></svg>
-            <span className="text-[12px] text-mute">50</span>
-          </span>
-          <span className="text-[12px] text-mute pb-8">to</span>
-          <span className="flex flex-col items-center gap-2">
-            <svg width={rBig * 2} height={rBig * 2} className="overflow-visible">
-              <defs>
-                <linearGradient id="pi-g" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#ff6b88" /><stop offset="50%" stopColor="#ff214f" /><stop offset="100%" stopColor="#d6103c" />
-                </linearGradient>
-              </defs>
-              <circle cx={rBig} cy={rBig} r={rBig} fill="url(#pi-g)" className="origin-center transition-transform duration-[1400ms] ease-out" style={{ transform: on ? "scale(1)" : `scale(${rSmall / rBig})`, transformBox: "fill-box" }} />
-            </svg>
-            <span className="text-[12px] text-mute">2,849</span>
-          </span>
+        <dd aria-hidden className="mt-auto pt-8">
+          <svg viewBox="0 0 260 170" className="mx-auto block w-full max-w-[300px] overflow-visible">
+            <line x1="0" y1="150" x2="260" y2="150" stroke="var(--color-line)" />
+            {/* Bars to scale: 50 vs 2,849 followers. */}
+            <rect x="30" y={150 - gSmall} width="56" height={gSmall} rx="3" fill="var(--color-ink)" />
+            <rect
+              x="174" y={150 - gBig} width="56" height={gBig} rx="6" fill="url(#pi-bar)"
+              className="transition-transform duration-[1400ms] ease-out"
+              style={{ transformBox: "fill-box", transformOrigin: "bottom", transform: on ? "scaleY(1)" : `scaleY(${gSmall / gBig})` }}
+            />
+            <path d="M92 132 Q130 120 160 30" fill="none" stroke="var(--color-brand)" strokeWidth="3" strokeLinecap="round" pathLength={1} strokeDasharray="1" style={{ strokeDashoffset: on ? 0 : 1, transition: "stroke-dashoffset 1s ease-out .6s" }} />
+            <path d="M150 38 L160 30 L163 43" fill="none" stroke="var(--color-brand)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: on ? 1 : 0, transition: "opacity .3s 1.5s" }} />
+            <text x="58" y="168" textAnchor="middle" fontSize="12" fill="var(--color-mute)">50</text>
+            <text x="202" y="168" textAnchor="middle" fontSize="12" fill="var(--color-mute)">2,849</text>
+          </svg>
         </dd>
       </div>
 
