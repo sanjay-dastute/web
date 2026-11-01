@@ -19,9 +19,9 @@ export default function AIDifference() {
   return (
     <section ref={root} className="overflow-hidden py-[120px]">
       {/* Full-bleed: headline and content share the same edge padding. */}
-      <div className="display select-none whitespace-nowrap px-[max(20px,4vw)] text-[clamp(96px,16vw,259px)]" aria-hidden>
+      <div className="display select-none [font-family:var(--font-oswald)] font-semibold tracking-[-0.01em] whitespace-nowrap px-[max(20px,4vw)] text-[clamp(96px,16vw,259px)]" aria-hidden>
         <div className="ai-row-a">Made by humans.</div>
-        <div className="ai-row-b text-brand-deep">Sped up by AI.</div>
+        <div className="ai-row-b text-brand-deep">Speed up by AI.</div>
       </div>
 
       {/* The four pipeline stages play out in the IdeaFunnel scene that follows. */}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Anton, Caveat } from "next/font/google";
+import { Inter, Anton, Caveat, Oswald } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Loader from "@/components/Loader";
@@ -10,6 +10,8 @@ import { SITE_NAME, SITE_URL, organizationLd, pageMeta, websiteLd } from "@/lib/
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", weight: ["400", "500"] });
 const anton = Anton({ subsets: ["latin"], variable: "--font-anton", weight: "400" });
+// Lighter condensed face for the AI difference headline, where Anton reads too heavy.
+const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald", weight: "600" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat", weight: ["400", "500"] });
 
 const home = pageMeta(
@@ -40,7 +42,7 @@ export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" suppressHydrationWarning className={`${inter.variable} ${anton.variable} ${caveat.variable}`}>
+    <html lang="en-IN" suppressHydrationWarning className={`${inter.variable} ${anton.variable} ${oswald.variable} ${caveat.variable}`}>
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM summary" />
       </head>
