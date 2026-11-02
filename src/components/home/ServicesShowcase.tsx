@@ -1,74 +1,48 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { services } from "@/lib/content";
 import { SectionHead } from "./Sections";
 
-/** Sticky preview on the right swaps as each service scrolls past on the left. */
+/**
+ * Services as an editorial index: one full-width row per service. Hovering a row sweeps the brand
+ * gradient in from the left, turns the text white and slides the service's short tag in on the right.
+ */
 export default function ServicesShowcase() {
-  const [active, setActive] = useState(0);
-  const root = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>(".svc-item").forEach((el, i) => {
-        ScrollTrigger.create({
-          trigger: el,
-          start: "top 55%",
-          end: "bottom 55%",
-          onToggle: (s) => s.isActive && setActive(i),
-        });
-      });
-    }, root);
-    return () => ctx.revert();
-  }, []);
-
-  const s = services[active];
-
   return (
-    <section ref={root} className="container-air py-[120px]">
+    <section className="container-air py-[120px]">
       <SectionHead split={false} eyebrow="Services">
         Nine service lines. <em className="cursive not-italic text-brand-deep">One</em> accountable team.
       </SectionHead>
 
-      <div className="grid gap-10 md:grid-cols-[1fr_1.05fr]">
-        <ol>
-          {services.map((x, i) => (
-            <li key={x.slug} className="svc-item border-t border-line py-8 last:border-b">
-              {/* Inactive items dim by colour, not opacity, so the small text keeps readable contrast. */}
-              <Link href={`/services/${x.slug}`} className="group block">
-                <div className="flex items-baseline gap-4">
-                  <span className="text-[13px] text-mute">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className={`text-[clamp(24px,2.6vw,32px)] leading-[1.1] transition-colors duration-500 ${i === active ? "text-ink" : "md:text-ink/50"}`}>{x.title}</h3>
-                  <span className="ml-auto -translate-x-2 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">→</span>
-                </div>
-                <p className={`mt-3 pl-9 transition-colors duration-500 ${i === active ? "text-ink/70" : "text-ink/70 md:text-ink/60"}`}>{x.blurb}</p>
-              </Link>
-            </li>
-          ))}
-        </ol>
+      <ol className="border-t border-line">
+        {services.map((s, i) => (
+          <li key={s.slug} data-reveal={(i % 3) * 0.06} className="border-b border-line">
+            <Link
+              href={`/services/${s.slug}`}
+              className="group relative isolate grid grid-cols-[36px_1fr_auto] items-center gap-x-4 overflow-hidden px-2 py-7 transition-colors duration-500 hover:text-white md:grid-cols-[64px_1.1fr_1fr_auto] md:px-6"
+            >
+              {/* Gradient sweep behind the row. */}
+              <span aria-hidden className="absolute inset-0 -z-10 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100" style={{ background: "linear-gradient(110deg, #ff214f, #d6103c)" }} />
 
-        <div className="hidden md:block">
-          <div className="sticky top-[calc(var(--nav-h)+40px)]">
-            <div className="sky relative aspect-[4/5] overflow-hidden rounded-[14px]">
-              <div key={s.slug} className="absolute inset-0 flex flex-col justify-between p-8 animate-[fadeSwap_.6s_ease]">
-                <span className="text-[13px] text-ink/60">{String(active + 1).padStart(2, "0")} / 09</span>
-                <span className="display text-center text-[clamp(72px,9vw,128px)] text-white drop-shadow-[0_10px_40px_rgba(255,33,79,.35)]">
-                  {s.icon}
+              <span className="text-[13px] text-mute transition-colors duration-500 group-hover:text-white/80">{String(i + 1).padStart(2, "0")}</span>
+
+              <span>
+                <span className="block text-[clamp(24px,3vw,40px)] leading-[1.1] tracking-[-0.02em] transition-transform duration-500 group-hover:translate-x-2">{s.title}</span>
+                <span className="mt-2 block text-[14px] text-ink/70 transition-colors duration-500 group-hover:text-white/85 md:hidden">{s.blurb}</span>
+              </span>
+
+              <span className="hidden text-[15px] text-ink/70 transition-colors duration-500 group-hover:text-white/90 md:block">{s.blurb}</span>
+
+              {/* Short tag slides in on hover, then an arrow drawn in CSS. */}
+              <span className="flex items-center gap-4">
+                <span aria-hidden className="display hidden w-[96px] translate-x-6 text-right text-[28px] opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100 lg:block">{s.icon}</span>
+                <span aria-hidden className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 transition-all duration-500 group-hover:-rotate-45 group-hover:border-white group-hover:bg-white">
+                  <span className="relative block h-[2px] w-4 bg-current transition-colors group-hover:bg-brand-deep after:absolute after:-right-px after:-top-[4px] after:h-[10px] after:w-[10px] after:rotate-45 after:border-r-2 after:border-t-2 after:border-current after:content-[''] group-hover:after:border-brand-deep" />
                 </span>
-                <div className="rounded-[12px] bg-white/80 p-5 backdrop-blur">
-                  <p className="cursive text-[32px] leading-[1.1] text-brand-deep">{s.tagline}</p>
-                  <p className="mt-1 text-[14px]">{s.title}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <style>{`@keyframes fadeSwap{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}`}</style>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
