@@ -19,11 +19,11 @@ const arrow = "M" + [...pts, tip].map(([x, y]) => `${x} ${y}`).join(" L");
 
 /**
  * The six proof stats as an infographic. Every visual is drawn to scale from the figure it explains
- * (blocks of 100K views, dots of 10 leads, 10 lit cells in 100, circles sized by follower count), and
+ * (bars of 100K views, a rising leads curve, 10 lit cells in 100, follower bars to scale), and
  * fills in once the section scrolls into view. Reduced motion shows the finished state.
  */
 export default function ProofInfographic() {
-  const root = useRef<HTMLDListElement>(null);
+  const root = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
 
   useEffect(() => {
@@ -43,15 +43,15 @@ export default function ProofInfographic() {
   const gSmall = Math.max(2, gBig * (50 / 2849));
 
   return (
-    <dl ref={root} className="grid gap-4 lg:grid-cols-12">
+    <div ref={root} className="grid gap-4 lg:grid-cols-12">
       {/* Views: bar graph of 11 bars (100K each) with a rising arrow over the tops. */}
       <div className={`${tile} justify-between bg-ink text-white lg:col-span-7`}>
         <div>
-          <dd className="text-[clamp(48px,6vw,88px)] font-medium leading-none tracking-[-0.03em]"><CountUp text={views.value} /></dd>
-          <dt className="mt-4 text-[18px]">{views.label}</dt>
-          <dd className="mt-1 text-[14px] text-white/60">{views.note}</dd>
+          <div className="text-[clamp(48px,6vw,88px)] font-medium leading-none tracking-[-0.03em]"><CountUp text={views.value} /></div>
+          <p className="mt-4 text-[18px]">{views.label}</p>
+          <div className="mt-1 text-[14px] text-white/60">{views.note}</div>
         </div>
-        <dd aria-hidden className="mt-10">
+        <div aria-hidden className="mt-10">
           <svg viewBox="0 0 440 170" className="block w-full overflow-visible">
             <defs>
               <linearGradient id="pi-bar" x1="0" y1="0" x2="0" y2="1">
@@ -77,15 +77,15 @@ export default function ProofInfographic() {
             />
           </svg>
           <p className="mt-3 text-[12px] text-white/50">Each bar = 100K views</p>
-        </dd>
+        </div>
       </div>
 
       {/* Leads: rising area chart ending in an arrow. */}
       <div className={`${tile} bg-white lg:col-span-5`}>
-        <dd className={big}><CountUp text={leads.value} /></dd>
-        <dt className="mt-4 text-[18px]">{leads.label}</dt>
-        <dd className="mt-1 text-[14px] text-mute">{leads.note}</dd>
-        <dd aria-hidden className="mt-auto pt-8">
+        <div className={big}><CountUp text={leads.value} /></div>
+        <p className="mt-4 text-[18px]">{leads.label}</p>
+        <div className="mt-1 text-[14px] text-mute">{leads.note}</div>
+        <div aria-hidden className="mt-auto pt-8">
           <svg viewBox="0 0 400 140" className="block w-full overflow-visible">
             <defs>
               <linearGradient id="pi-area" x1="0" y1="0" x2="0" y2="1">
@@ -101,15 +101,15 @@ export default function ProofInfographic() {
             </g>
             <path d={leadHead} fill="none" stroke="var(--color-brand)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: on ? 1 : 0, transition: "opacity .3s 1.5s" }} />
           </svg>
-        </dd>
+        </div>
       </div>
 
       {/* CTR: 10 of 100 cells lit. */}
       <div className={`${tile} bg-white lg:col-span-4`}>
-        <dd className={big}><CountUp text={ctr.value} /></dd>
-        <dt className="mt-4 text-[18px]">{ctr.label}</dt>
-        <dd className="mt-1 text-[14px] text-mute">{ctr.note}</dd>
-        <dd aria-hidden className="mt-auto pt-8">
+        <div className={big}><CountUp text={ctr.value} /></div>
+        <p className="mt-4 text-[18px]">{ctr.label}</p>
+        <div className="mt-1 text-[14px] text-mute">{ctr.note}</div>
+        <div aria-hidden className="mt-auto pt-8">
           <div className="grid max-w-[220px] gap-1" style={{ gridTemplateColumns: "repeat(10, minmax(0, 1fr))" }}>
             {Array.from({ length: 100 }, (_, i) => {
               const hit = i % 10 === 9 - Math.floor(i / 10) % 10; // one per row, on a diagonal
@@ -123,15 +123,15 @@ export default function ProofInfographic() {
             })}
           </div>
           <p className="mt-3 text-[12px] text-mute">10 in every 100 who saw the ad clicked</p>
-        </dd>
+        </div>
       </div>
 
       {/* Growth: two bars to scale with an arrow between. */}
       <div className={`${tile} bg-white lg:col-span-4`}>
-        <dd className={big}><CountUp text={growth.value} /></dd>
-        <dt className="mt-4 text-[18px]">{growth.label}</dt>
-        <dd className="mt-1 text-[14px] text-mute">{growth.note}</dd>
-        <dd aria-hidden className="mt-auto pt-8">
+        <div className={big}><CountUp text={growth.value} /></div>
+        <p className="mt-4 text-[18px]">{growth.label}</p>
+        <div className="mt-1 text-[14px] text-mute">{growth.note}</div>
+        <div aria-hidden className="mt-auto pt-8">
           <svg viewBox="0 0 260 170" className="mx-auto block w-full max-w-[300px] overflow-visible">
             <line x1="0" y1="150" x2="260" y2="150" stroke="var(--color-line)" />
             {/* Bars to scale: 50 vs 2,849 followers. */}
@@ -146,25 +146,25 @@ export default function ProofInfographic() {
             <text x="58" y="168" textAnchor="middle" fontSize="12" fill="var(--color-mute)">50</text>
             <text x="202" y="168" textAnchor="middle" fontSize="12" fill="var(--color-mute)">2,849</text>
           </svg>
-        </dd>
+        </div>
       </div>
 
       {/* Two cost tiles stacked. */}
       <div className="grid gap-4 lg:col-span-4">
         <div className={`${tile} justify-center bg-white`}>
-          <dd className={big}><CountUp text={cpl.value} /></dd>
-          <dt className="mt-4 text-[18px]">{cpl.label}</dt>
-          <dd className="mt-1 text-[14px] text-mute">{cpl.note}</dd>
+          <div className={big}><CountUp text={cpl.value} /></div>
+          <p className="mt-4 text-[18px]">{cpl.label}</p>
+          <div className="mt-1 text-[14px] text-mute">{cpl.note}</div>
         </div>
         <div className={`${tile} relative justify-center overflow-hidden bg-brand-ember`}>
           <svg aria-hidden viewBox="0 0 24 24" className="absolute -right-4 -top-4 h-28 w-28 text-white/15 transition-transform duration-700" style={{ transform: on ? "rotate(0deg) scale(1)" : "rotate(-20deg) scale(.6)" }}>
             <path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
           </svg>
-          <dd className="relative text-[clamp(40px,5vw,64px)] font-medium leading-none tracking-[-0.03em] text-white"><CountUp text={chat.value} /></dd>
-          <dt className="relative mt-4 text-[18px] text-white">{chat.label}</dt>
-          <dd className="relative mt-1 text-[14px] text-white/85">{chat.note}</dd>
+          <div className="relative text-[clamp(40px,5vw,64px)] font-medium leading-none tracking-[-0.03em] text-white"><CountUp text={chat.value} /></div>
+          <p className="relative mt-4 text-[18px] text-white">{chat.label}</p>
+          <div className="relative mt-1 text-[14px] text-white/85">{chat.note}</div>
         </div>
       </div>
-    </dl>
+    </div>
   );
 }

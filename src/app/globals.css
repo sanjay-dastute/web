@@ -103,9 +103,6 @@ body {
 }
 @keyframes drift { from { transform: translateX(-10vw); } to { transform: translateX(10vw); } }
 @keyframes fadeSwap { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.marquee-track { animation: marquee 40s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
 
 /* Hexagon cursor follower (components/motion/Cursor). Sits beside the native cursor, never replaces it. */
 .cursor-hex {

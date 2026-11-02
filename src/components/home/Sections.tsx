@@ -11,19 +11,38 @@ export function SectionHead({ eyebrow, children, center = true, split = true }: 
   );
 }
 
+/** Client roll as a split layout: count and line on the left, a 3x3 grid of monogram tiles on the right. */
 export function LogoBar() {
-  const row = [...clients, ...clients];
+  // Initials for the monogram, skipping a leading "The".
+  const initials = (name: string) => name.replace(/^The /, "").split(" ").slice(0, 2).map((w) => w[0]).join("");
   return (
-    <section className="border-y border-line py-8">
-      <p className="container-air mb-5 text-center text-[13px] text-mute">Trusted by growing brands across Tamil Nadu</p>
-      <div className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <div className="marquee-track flex w-max gap-16">
-          {row.map((c, i) => (
-            <span key={i} className="whitespace-nowrap text-[22px] tracking-tight text-ink/60 transition-colors hover:text-ink">
-              {c}
-            </span>
-          ))}
+    <section className="border-y border-line bg-white py-[96px]">
+      <div className="container-air grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div data-reveal>
+          <p className="mb-4 text-[13px] uppercase tracking-[0.14em] text-mute">Our clients</p>
+          <p className="text-gradient-brand text-[clamp(64px,8vw,112px)] font-medium leading-none tracking-[-0.04em]">{clients.length}+</p>
+          <h2 className="mt-4 max-w-[380px] text-[clamp(26px,3vw,36px)] leading-[1.15] tracking-[-0.02em]">
+            Growing brands across <em className="cursive not-italic text-brand-deep">Tamil Nadu</em> trust us with their name.
+          </h2>
         </div>
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {clients.map((c, i) => (
+            <li
+              key={c}
+              data-reveal={(i % 3) * 0.08 + Math.floor(i / 3) * 0.08}
+              className="group flex items-center gap-3 rounded-[14px] border border-line bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_16px_40px_-20px_rgba(255,33,79,.45)]"
+            >
+              <span
+                aria-hidden
+                className="grid h-11 w-11 shrink-0 place-items-center text-[13px] font-medium text-white transition-transform duration-500 group-hover:rotate-[30deg]"
+                style={{ background: "var(--gradient-brand)", clipPath: "polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%)" }}
+              >
+                <span className="transition-transform duration-500 group-hover:-rotate-[30deg]">{initials(c)}</span>
+              </span>
+              <span className="text-[15px] leading-tight">{c}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
