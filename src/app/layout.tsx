@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Loader from "@/components/Loader";
 import Nav from "@/components/Nav";
+import WhatsAppFab from "@/components/WhatsAppFab";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { SITE_NAME, SITE_URL, organizationLd, pageMeta, websiteLd } from "@/lib/seo";
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main>{children}</main>
         <Footer />
+        <WhatsAppFab />
       </body>
     </html>
   );

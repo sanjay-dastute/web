@@ -57,9 +57,6 @@ export default function Nav() {
         </ul>
 
         <div className="ml-auto hidden items-center gap-3 lg:flex">
-          <a href={contact.whatsapp} target="_blank" rel="noreferrer" className="text-[14px] opacity-80 hover:opacity-100">
-            WhatsApp
-          </a>
           <Link href="/contact" className="btn btn-ghost">Book a Free Consultation</Link>
         </div>
 

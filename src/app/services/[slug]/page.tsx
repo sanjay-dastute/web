@@ -9,6 +9,9 @@ import { services } from "@/lib/content";
 import { serviceDetails } from "@/lib/serviceDetails";
 import { breadcrumbLd, pageMeta, serviceLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
+import IncludedStack from "@/components/services/IncludedStack";
+import AiTrack from "@/components/services/AiTrack";
+import TimelineBars from "@/components/services/TimelineBars";
 import { DmServices, LaunchPlan, Objectives, Plans, ProofStats, ScopeOfWork } from "@/components/Marketing";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -38,7 +41,7 @@ export default async function ServicePage({ params }: Params) {
         breadcrumbLd([{ name: "Services", path: "/services" }, { name: svc.title, path: `/services/${slug}` }]),
       ]} />
       <PageHero
-        eyebrow={`Service ${String(idx + 1).padStart(2, "0")} / 09 · ${svc.title}`}
+        eyebrow={`Service ${String(idx + 1).padStart(2, "0")} / 09 - ${svc.title}`}
         title={d.h1}
         sub={d.sub}
         primary={{ label: "Book a Free Consultation", href: "/contact" }}
@@ -47,19 +50,12 @@ export default async function ServicePage({ params }: Params) {
 
       <section className="container-air py-[120px]">
         <SectionHead eyebrow="What's included" center={false}>{d.includedTitle}</SectionHead>
-        <div className={`grid gap-4 sm:grid-cols-2 ${d.included.length > 4 ? "lg:grid-cols-3" : ""}`}>
-          {d.included.map((g, i) => (
-            <div key={g.title} data-reveal={(i % 3) * 0.08} className="card-haze flex flex-col gap-3 p-7 transition-transform duration-500 hover:-translate-y-1">
-              <h3 className="text-[20px] leading-[1.4]">{g.title}</h3>
-              <p className="text-ink/70">{g.body}</p>
-            </div>
-          ))}
-        </div>
+        <IncludedStack items={d.included} />
         {d.extras && (
           <div className="mt-16" data-reveal>
             <p className="mb-4 text-[13px] uppercase tracking-[0.14em] text-mute">{d.extras.title}</p>
             <div className="flex flex-wrap gap-2">
-              {d.extras.items.map((x) => <span key={x} className="pill px-4 py-2 text-[14px]">{x}</span>)}
+              {d.extras.items.map((x, k) => <span key={x} data-reveal={k * 0.04} className="pill px-4 py-2 text-[14px] transition-colors hover:bg-brand hover:text-white">{x}</span>)}
             </div>
           </div>
         )}
@@ -88,45 +84,32 @@ export default async function ServicePage({ params }: Params) {
               <p className="mt-3">{d.human}</p>
             </div>
           </div>
-          <ol className="space-y-px">
-            {d.ai.map((a, i) => (
-              <li key={a.title} data-reveal={i * 0.06} className="border-t border-line py-6">
-                <div className="flex gap-5">
-                  <span className="text-[13px] text-mute">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3 className="text-[20px] leading-[1.4]">{a.title}</h3>
-                    <p className="mt-1 text-ink/70">{a.body}</p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <AiTrack steps={d.ai} />
         </div>
       </section>
 
       {d.timeline && (
         <section className="container-air py-[120px]">
           <SectionHead eyebrow="Timeline" center={false}>How long it <Accent text="*takes*" /></SectionHead>
-          <ul>
-            {d.timeline.map((t, i) => (
-              <li key={t.label} data-reveal={i * 0.06} className="group flex flex-wrap items-baseline justify-between gap-4 border-t border-line py-6 last:border-b">
-                <span className="text-[20px] transition-transform duration-500 group-hover:translate-x-2">{t.label}</span>
-                <span className="text-brand-deep">{t.time}</span>
-              </li>
-            ))}
-          </ul>
+          <TimelineBars rows={d.timeline} />
         </section>
       )}
 
       <Faq items={d.faqs} title={`${svc.title} FAQ`} />
 
       <section className="container-air pb-[120px]">
-        <Link href={`/services/${next.slug}`} className="group flex items-end justify-between border-t border-ink pt-8" data-reveal>
+        <Link href={`/services/${next.slug}`} className="group flex items-end justify-between gap-6 border-t border-ink pt-8" data-reveal>
           <span>
             <span className="block text-[13px] text-mute">Next service</span>
-            <span className="display mt-2 block text-[clamp(48px,8vw,120px)] transition-colors group-hover:text-brand-deep">{next.title}</span>
+            {/* Red fill wipes across the title on hover; the outline copy sits underneath. */}
+            <span className="display relative mt-2 block text-[clamp(48px,8vw,120px)] leading-[1]">
+              <span>{next.title}</span>
+              <span aria-hidden className="absolute inset-0 text-brand-deep transition-[clip-path] duration-700 ease-out [clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)]">{next.title}</span>
+            </span>
           </span>
-          <span className="text-[40px] transition-transform group-hover:translate-x-2">→</span>
+          <span aria-hidden className="mb-3 grid h-16 w-16 shrink-0 place-items-center rounded-full border border-ink transition-all duration-500 group-hover:-rotate-45 group-hover:border-brand-deep group-hover:bg-brand-deep group-hover:text-white">
+            <span className="relative block h-[2px] w-6 bg-current after:absolute after:-right-px after:-top-[4px] after:h-[10px] after:w-[10px] after:rotate-45 after:border-r-2 after:border-t-2 after:border-current after:content-['']" />
+          </span>
         </Link>
       </section>
 
