@@ -33,9 +33,9 @@ const stats = [
 
 const team = [
   { name: "Jeyenth Jayaraman", role: "Founder & CEO", background: "#ffe3e9", shirt: "#d6103c", hair: "#29232b" },
-  { name: "Rajakumar Chinnavedi", role: "Digital Marketing Strategist", background: "#e9e4fa", shirt: "#66549a", hair: "#342a29" },
-  { name: "Gowrisankar K", role: "Creative Visualiser", background: "#e0efeb", shirt: "#3b7668", hair: "#252a30" },
-  { name: "Lisa Trueman", role: "UI/UX Designer", background: "#fff0d9", shirt: "#b47740", hair: "#6e4434" },
+  { name: "Mohammed Shifan", role: "Creative Visualiser", background: "#e9e4fa", shirt: "#66549a", hair: "#342a29" },
+  { name: "Rajakumar", role: "Digital Marketer", background: "#e0efeb", shirt: "#3b7668", hair: "#252a30" },
+  { name: "Jaideep", role: "Creative Visual Photographer", background: "#fff0d9", shirt: "#b47740", hair: "#6e4434" },
 ];
 
 export default function AboutPage() {
@@ -92,15 +92,13 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section className="container-air py-20">
-        <SectionHead eyebrow="The team">Who you&apos;ll <em className="cursive not-italic text-brand-deep">work</em> with</SectionHead>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="container-air py-20 md:py-24">
+        <SectionHead eyebrow="The team">The people behind the <em className="cursive not-italic text-brand-deep">ideas.</em></SectionHead>
+        <div className="mx-auto grid max-w-[1000px] gap-4 md:grid-cols-2 md:gap-6">
           {team.map((person, i) => (
-            <div key={person.name} data-reveal={i * 0.08} className="group">
-              <div className="relative overflow-hidden rounded-[14px]" style={{ background: person.background }}>
-                <span className="absolute left-4 top-4 z-10 text-[11px] tracking-[0.16em] text-ink/45" aria-hidden>0{i + 1} / CREATOOS</span>
-                <svg viewBox="0 0 240 280" className="aspect-[4/5] w-full transition-transform duration-500 group-hover:scale-105" role="img" aria-label={`Illustrated avatar placeholder for ${person.name}`}>
-                  <circle cx="120" cy="144" r="103" fill="none" stroke="white" strokeOpacity="0.5" />
+            <article key={person.name} data-reveal={i * 0.08} className="group flex items-center gap-5 rounded-[24px] border border-line bg-white p-5 transition-[border-color,box-shadow] duration-300 hover:border-brand/25 hover:shadow-[0_12px_36px_-24px_rgba(27,27,27,0.25)] sm:gap-7 sm:p-7">
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full sm:h-32 sm:w-32" style={{ background: person.background }}>
+                <svg viewBox="0 0 240 280" className="absolute inset-x-0 bottom-0 h-full w-full origin-bottom scale-110 transition-transform duration-500 group-hover:scale-[1.16]" role="img" aria-label={`Illustrated avatar placeholder for ${person.name}`}>
                   <circle cx="120" cy="122" r="82" fill="white" opacity="0.4" />
                   {i === 3 && <path d="M73 117C62 47 175 39 170 119L181 200H61Z" fill={person.hair} />}
                   <path d="M34 280v-34c0-45 38-68 86-68s86 23 86 68v34" fill={person.shirt} />
@@ -114,11 +112,15 @@ export default function AboutPage() {
                   <path d="m92 190 28 25 28-25" fill="none" stroke="white" strokeOpacity="0.5" strokeWidth="3" />
                 </svg>
               </div>
-              <div className="mt-5 border-t border-ink/15 pt-4">
-                <h3 className="display text-[clamp(24px,2.3vw,32px)] leading-[1.15] tracking-[-0.015em] transition-colors group-hover:text-brand-deep">{person.name}</h3>
-                <p className="mt-3 text-[11px] font-medium uppercase leading-[1.6] tracking-[0.12em] text-brand-deep">{person.role}</p>
+              <div className="min-w-0">
+                <h3 className="text-[21px] font-medium leading-[1.25] tracking-[-0.025em] sm:text-[25px]">
+                  <span className="block">{person.name.split(" ")[0]}</span>
+                  <span className="block">{person.name.split(" ").slice(1).join(" ")}</span>
+                </h3>
+                <span className="my-3 block h-[2px] w-6 bg-brand/60 transition-[width] duration-300 group-hover:w-10" aria-hidden />
+                <p className="text-[12px] leading-[1.5] text-mute sm:text-[13px]">{person.role}</p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
