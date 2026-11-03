@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Anton, Caveat, Oswald } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Loader from "@/components/Loader";
@@ -9,11 +9,12 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { SITE_NAME, SITE_URL, organizationLd, pageMeta, websiteLd } from "@/lib/seo";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", weight: ["400", "500"] });
-const anton = Anton({ subsets: ["latin"], variable: "--font-anton", weight: "400" });
+// Bundle fonts so production builds do not depend on Google Fonts responses.
+const inter = localFont({ src: "./fonts/Inter.ttf", variable: "--font-inter", weight: "100 900", display: "swap" });
+const anton = localFont({ src: "./fonts/Anton.ttf", variable: "--font-anton", weight: "400", display: "swap" });
 // Lighter condensed face for the AI difference headline, where Anton reads too heavy.
-const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald", weight: "600" });
-const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat", weight: ["400", "500"] });
+const oswald = localFont({ src: "./fonts/Oswald.ttf", variable: "--font-oswald", weight: "200 700", display: "swap" });
+const caveat = localFont({ src: "./fonts/Caveat.ttf", variable: "--font-caveat", weight: "400 700", display: "swap" });
 
 const home = pageMeta(
   "/",
