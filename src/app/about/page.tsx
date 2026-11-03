@@ -96,9 +96,11 @@ export default function AboutPage() {
         <SectionHead eyebrow="The team">Who you&apos;ll <em className="cursive not-italic text-brand-deep">work</em> with</SectionHead>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((person, i) => (
-            <div key={person.name} data-reveal={i * 0.08}>
-              <div className="group overflow-hidden rounded-[14px]" style={{ background: person.background }}>
+            <div key={person.name} data-reveal={i * 0.08} className="group">
+              <div className="relative overflow-hidden rounded-[14px]" style={{ background: person.background }}>
+                <span className="absolute left-4 top-4 z-10 text-[11px] tracking-[0.16em] text-ink/45" aria-hidden>0{i + 1} / CREATOOS</span>
                 <svg viewBox="0 0 240 280" className="aspect-[4/5] w-full transition-transform duration-500 group-hover:scale-105" role="img" aria-label={`Illustrated avatar placeholder for ${person.name}`}>
+                  <circle cx="120" cy="144" r="103" fill="none" stroke="white" strokeOpacity="0.5" />
                   <circle cx="120" cy="122" r="82" fill="white" opacity="0.4" />
                   {i === 3 && <path d="M73 117C62 47 175 39 170 119L181 200H61Z" fill={person.hair} />}
                   <path d="M34 280v-34c0-45 38-68 86-68s86 23 86 68v34" fill={person.shirt} />
@@ -112,8 +114,10 @@ export default function AboutPage() {
                   <path d="m92 190 28 25 28-25" fill="none" stroke="white" strokeOpacity="0.5" strokeWidth="3" />
                 </svg>
               </div>
-              <h3 className="mt-4 text-[18px]">{person.name}</h3>
-              <p className="mt-1 text-[14px] text-mute">{person.role}</p>
+              <div className="mt-5 border-t border-ink/15 pt-4">
+                <h3 className="display text-[clamp(24px,2.3vw,32px)] leading-[1.15] tracking-[-0.015em] transition-colors group-hover:text-brand-deep">{person.name}</h3>
+                <p className="mt-3 text-[11px] font-medium uppercase leading-[1.6] tracking-[0.12em] text-brand-deep">{person.role}</p>
+              </div>
             </div>
           ))}
         </div>
