@@ -160,7 +160,7 @@ export default function ProofInfographic() {
           <svg aria-hidden viewBox="0 0 24 24" className="absolute -right-4 -top-4 h-28 w-28 text-white/15 transition-transform duration-700" style={{ transform: on ? "rotate(0deg) scale(1)" : "rotate(-20deg) scale(.6)" }}>
             <path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
           </svg>
-          <div className="relative text-[clamp(40px,5vw,64px)] font-medium leading-none tracking-[-0.03em] text-white"><CountUp text={chat.value} /></div>
+          <div className="proof-chat-value relative text-[clamp(40px,5vw,64px)] font-medium leading-none tracking-[-0.03em] text-white"><CountUp text={chat.value} /></div>
           <p className="relative mt-4 text-[18px] text-white">{chat.label}</p>
           <div className="relative mt-1 text-[14px] text-white/85">{chat.note}</div>
         </div>

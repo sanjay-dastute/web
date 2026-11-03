@@ -154,15 +154,15 @@ body {
   .proof-grid > .grid > .rounded-\[18px\] { padding: 18px; }
   .proof-grid > .grid { gap: 12px; }
   .proof-grid .text-gradient-brand,
-  .proof-grid .bg-brand-ember > div { font-size: clamp(32px, 3.3vw, 44px); }
+  .proof-grid .proof-chat-value { font-size: clamp(32px, 3.3vw, 44px); }
   .proof-grid .bg-ink > div:first-child > div:first-child { font-size: 56px; }
   .proof-grid p.mt-4 { margin-top: 8px; font-size: 15px; }
   .proof-grid .text-\[14px\] { font-size: 12px; }
   .proof-grid .mt-10 { margin-top: 12px; }
   .proof-grid .pt-8 { padding-top: 12px; }
-  .proof-grid svg { height: 100px; width: 100%; }
+  .proof-grid svg { height: 120px; width: 100%; }
   .proof-grid .bg-ink svg { height: 96px; }
-  .proof-grid .max-w-\[220px\] { max-width: 112px; gap: 2px; }
+  .proof-grid .max-w-\[220px\] { max-width: 128px; gap: 2px; }
   .proof-grid p.mt-3 { margin-top: 6px; font-size: 11px; }
   .proof-grid .bg-brand-ember > svg { height: 72px; width: 72px; }
 }
