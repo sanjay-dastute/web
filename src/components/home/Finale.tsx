@@ -33,7 +33,7 @@ export default function Finale() {
     <section ref={root} className="relative overflow-hidden bg-brand-petal py-[140px]">
       <div className="container-air grid items-center gap-12 md:grid-cols-[1fr_1.1fr]">
         <div className="relative mx-auto aspect-square w-full max-w-[380px]" aria-hidden>
-          <div className="fn-glow absolute inset-[10%] rounded-full opacity-60 blur-[60px]" style={{ background: "var(--gradient-brand)" }} />
+          <div className="fn-glow absolute inset-[18%] rounded-full opacity-20 blur-[50px]" style={{ background: "var(--gradient-brand)" }} />
           <svg viewBox={MARK_VIEWBOX} className="absolute inset-[14%] overflow-visible">
             <defs>
               <linearGradient id="fn-grad" x1="0" y1="0" x2="1" y2="1">

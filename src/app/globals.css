@@ -145,6 +145,28 @@ body {
 .funnel-flow:nth-child(4)::after { animation-delay: 1.05s; }
 @keyframes funnel-sweep { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
 
+/* Keep the complete results grid and heading together on desktop screens. */
+@media (min-width: 1024px) {
+  .proof-section .container-air > div:first-child { margin-bottom: 20px; }
+  .proof-section h2 { font-size: clamp(32px, 3.5vw, 44px); }
+  .proof-section .container-air > div:first-child > p { margin-bottom: 8px; }
+  .proof-grid > .rounded-\[18px\],
+  .proof-grid > .grid > .rounded-\[18px\] { padding: 18px; }
+  .proof-grid > .grid { gap: 12px; }
+  .proof-grid .text-gradient-brand,
+  .proof-grid .bg-brand-ember > div { font-size: clamp(32px, 3.3vw, 44px); }
+  .proof-grid .bg-ink > div:first-child > div:first-child { font-size: 56px; }
+  .proof-grid p.mt-4 { margin-top: 8px; font-size: 15px; }
+  .proof-grid .text-\[14px\] { font-size: 12px; }
+  .proof-grid .mt-10 { margin-top: 12px; }
+  .proof-grid .pt-8 { padding-top: 12px; }
+  .proof-grid svg { height: 100px; width: 100%; }
+  .proof-grid .bg-ink svg { height: 96px; }
+  .proof-grid .max-w-\[220px\] { max-width: 112px; gap: 2px; }
+  .proof-grid p.mt-3 { margin-top: 6px; font-size: 11px; }
+  .proof-grid .bg-brand-ember > svg { height: 72px; width: 72px; }
+}
+
 /* Mobile hero mark: slow float and sway (replaces the WebGL scene on phones). */
 .hero-float > svg { animation: hero-float 6s ease-in-out infinite; }
 @keyframes hero-float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-14px) rotate(3deg); } }

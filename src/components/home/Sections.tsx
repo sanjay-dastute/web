@@ -11,7 +11,7 @@ export function SectionHead({ eyebrow, children, center = true, split = true }: 
   );
 }
 
-/** Client roll as a split layout: count and line on the left, a 3x3 grid of monogram tiles on the right. */
+/** Client introduction with a grid of monogram tiles. */
 export function LogoBar() {
   // Initials for the monogram, skipping a leading "The".
   const initials = (name: string) => name.replace(/^The /, "").split(" ").slice(0, 2).map((w) => w[0]).join("");
@@ -20,9 +20,8 @@ export function LogoBar() {
       <div className="container-air grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         <div data-reveal>
           <p className="mb-4 text-[13px] uppercase tracking-[0.14em] text-mute">Our clients</p>
-          <p className="text-gradient-brand text-[clamp(64px,8vw,112px)] font-medium leading-none tracking-[-0.04em]">{clients.length}+</p>
           <h2 className="mt-4 max-w-[380px] text-[clamp(26px,3vw,36px)] leading-[1.15] tracking-[-0.02em]">
-            Growing brands across <em className="cursive not-italic text-brand-deep">Tamil Nadu</em> trust us with their name.
+            Growing brands trust us with their <em className="cursive not-italic text-brand-deep">identity.</em>
           </h2>
         </div>
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">

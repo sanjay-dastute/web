@@ -43,7 +43,7 @@ export default function ProofInfographic() {
   const gSmall = Math.max(2, gBig * (50 / 2849));
 
   return (
-    <div ref={root} className="grid gap-4 lg:grid-cols-12">
+    <div ref={root} className="proof-grid grid gap-3 lg:grid-cols-12">
       {/* Views: bar graph of 11 bars (100K each) with a rising arrow over the tops. */}
       <div className={`${tile} justify-between bg-ink text-white lg:col-span-7`}>
         <div>

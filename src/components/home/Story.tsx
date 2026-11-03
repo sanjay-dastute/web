@@ -87,7 +87,9 @@ export default function Story() {
               {problemLines.map((l, i) => (
                 <li key={l} className={`st-line-${i} flex gap-3`}>
                   <span className="mt-[0.6em] h-[6px] w-[6px] shrink-0 rounded-full bg-brand" aria-hidden />
-                  {l}
+                  <span className="min-w-0">
+                    <span className="box-decoration-clone bg-[#f34f68] px-[0.12em] text-white">{l}</span>
+                  </span>
                 </li>
               ))}
             </ol>

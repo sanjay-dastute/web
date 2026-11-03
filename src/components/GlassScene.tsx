@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, Lightformer } from "@react-three/drei";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { ExtrudeGeometry, type Group } from "three";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import { MARK_PATH, MARK_VIEWBOX } from "@/lib/logo";
@@ -12,7 +12,8 @@ function useMarkGeometry() {
   return useMemo(() => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${MARK_VIEWBOX}"><path d="${MARK_PATH}"/></svg>`;
     const shapes = new SVGLoader().parse(svg).paths.flatMap((p) => SVGLoader.createShapes(p));
-    const geo = new ExtrudeGeometry(shapes, { depth: 70, bevelEnabled: true, bevelThickness: 14, bevelSize: 8, bevelSegments: 6, curveSegments: 24 });
+    // Keep bevels inside the narrow gaps between the interlocking logo strokes.
+    const geo = new ExtrudeGeometry(shapes, { depth: 50, bevelEnabled: true, bevelThickness: 4, bevelSize: 2, bevelSegments: 4, curveSegments: 24 });
     geo.center();
     // Bring it to ~2.4 world units wide. SVG y runs down, so flip it with a half-turn about X:
     // a negative scale would mirror the mesh, reverse face winding and render the caps black.
@@ -22,10 +23,16 @@ function useMarkGeometry() {
   }, []);
 }
 
-function Mark() {
+function Mark({ onReady }: { onReady?: () => void }) {
   const ref = useRef<Group>(null);
   const geometry = useMarkGeometry();
+  const ready = useRef(false);
+  useEffect(() => () => geometry.dispose(), [geometry]);
   useFrame((state) => {
+    if (!ready.current) {
+      ready.current = true;
+      onReady?.();
+    }
     if (!ref.current) return;
     const t = state.clock.elapsedTime;
     // Sway rather than spin, so the mark stays readable; lean toward the pointer.
@@ -46,10 +53,10 @@ function Mark() {
 }
 
 /** `active` false stops the render loop entirely (used while the hero is scrolled out of view). */
-export default function GlassScene({ active = true }: { active?: boolean }) {
+export default function GlassScene({ active = true, onReady }: { active?: boolean; onReady?: () => void }) {
   return (
     <Canvas frameloop={active ? "always" : "never"} dpr={[1, 1.75]} camera={{ position: [0, 0, 6], fov: 40 }} gl={{ alpha: true, antialias: true }}>
-      <Mark />
+      <Mark onReady={onReady} />
       {/* Direct lights so the mark never renders unlit if the environment map fails (seen on software GL). */}
       <ambientLight intensity={0.9} />
       <directionalLight position={[3, 4, 5]} intensity={2.2} />

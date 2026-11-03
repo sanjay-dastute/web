@@ -18,7 +18,7 @@ const eyebrow = "mb-4 text-[13px] uppercase tracking-[0.14em] text-mute";
 /** Results from live client accounts. */
 export function ProofStats() {
   return (
-    <section className="bg-brand-petal py-[120px]">
+    <section className="proof-section bg-brand-petal py-12 lg:py-6">
       <div className="container-air">
         <SectionHead eyebrow="Proof from live client accounts" center={false}>
           Numbers, not <Accent text="*adjectives.*" />

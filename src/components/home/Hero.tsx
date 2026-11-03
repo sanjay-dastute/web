@@ -1,14 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { Component, useCallback, useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { onIntroDone } from "@/components/Loader";
 import { LogoMark } from "@/components/Logo";
 
+class LogoSceneBoundary extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch() { this.props.onError(); }
+  render() { return this.state.failed ? null : this.props.children; }
+}
+
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
-  const [Glass, setGlass] = useState<ComponentType<{ active?: boolean }> | null>(null);
+  const [Glass, setGlass] = useState<ComponentType<{ active?: boolean; onReady?: () => void }> | null>(null);
+  const [sceneReady, setSceneReady] = useState(false);
+  const markReady = useCallback(() => setSceneReady(true), []);
+  const markFailed = useCallback(() => setSceneReady(false), []);
   const [visible, setVisible] = useState(true);
 
   // Pause the WebGL loop while the hero is off-screen (it otherwise renders every frame behind the pinned scenes).
@@ -20,14 +30,15 @@ export default function Hero() {
 
   // WebGL scene: desktop with a fine pointer only, loaded once the browser is idle so it never competes with
   // first paint. Phones keep the SVG mark below (three.js costs seconds of CPU on a mid-range phone).
-  const [webgl, setWebgl] = useState(false);
   useEffect(() => {
-    if (!window.matchMedia("(min-width: 768px) and (pointer: fine)").matches) return;
-    setWebgl(true);
-    const load = () => import("@/components/GlassScene").then((m) => setGlass(() => m.default));
+    if (!window.matchMedia("(min-width: 768px) and (pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let cancelled = false;
+    const load = () => import("@/components/GlassScene")
+      .then((m) => { if (!cancelled) setGlass(() => m.default); })
+      .catch(() => { /* Keep the SVG visible if the 3D bundle cannot load. */ });
     const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1200));
     const id = idle(load);
-    return () => (window.cancelIdleCallback ?? window.clearTimeout)(id);
+    return () => { cancelled = true; (window.cancelIdleCallback ?? window.clearTimeout)(id); };
   }, []);
 
   useEffect(() => {
@@ -60,19 +71,19 @@ export default function Hero() {
 
       {/* Mobile: its own slot between headline and copy. Desktop: floats under the headline. */}
       <div className="hero-glass relative order-2 h-[30svh] md:absolute md:inset-x-0 md:top-[38%] md:bottom-[12%] md:h-auto" aria-hidden>
-        {webgl ? (
-          Glass && <Glass active={visible} />
-        ) : (
-          // Phones / touch: the gradient mark as SVG with a gentle CSS float - no WebGL.
-          <div className="hero-float grid h-full place-items-center">
+          <div className={`hero-float pointer-events-none absolute inset-0 grid place-items-center ${sceneReady ? "invisible" : ""}`}>
             <LogoMark className="h-[70%] w-auto drop-shadow-[0_20px_40px_rgba(255,33,79,.35)]" gradient />
           </div>
+        {Glass && (
+          <LogoSceneBoundary onError={markFailed}>
+            <Glass active={visible} onReady={markReady} />
+          </LogoSceneBoundary>
         )}
       </div>
 
       <div className="hero-top container-air relative order-1 pt-[clamp(24px,5vh,56px)] text-center">
         <p className="hero-fade pill bg-white/70 backdrop-blur">Creative &amp; technology studio · Coimbatore</p>
-        <h1 className="mx-auto mt-6 max-w-[1100px] text-[clamp(44px,8.4vw,128px)] font-medium leading-[0.98] tracking-[-0.035em]">
+        <h1 className="mx-auto mt-6 max-w-[1100px] text-[clamp(36px,6.7vw,102px)] font-medium leading-[0.98] tracking-[-0.035em]">
           <span className="hero-line line-mask"><span>Brands built to be</span></span>
           <span className="hero-line line-mask">
             <span>
@@ -83,13 +94,13 @@ export default function Hero() {
         </h1>
       </div>
 
-      <div className="hero-bottom container-air relative order-3 mt-auto grid gap-6 pb-8 md:grid-cols-[1fr_auto] md:items-end md:gap-8">
-        <div>
-          <p className="hero-fade max-w-[440px] text-[17px] leading-[1.5] text-ink/75">
+      <div className="hero-bottom container-air relative order-3 mt-auto pb-8 text-center">
+        <div className="mx-auto max-w-[440px]">
+          <p className="hero-fade text-[17px] leading-[1.5] text-ink/75">
             Branding, websites, apps, marketing and search, with AI across our production process so the work ships
             sooner and gets tested harder.
           </p>
-          <div className="hero-fade mt-6 flex flex-wrap gap-3">
+          <div className="hero-fade mt-6 flex flex-wrap justify-center gap-3">
             <Link href="/contact" className="btn btn-brand">Start a Project →</Link>
             <Link href="/work" className="btn btn-ghost btn-glass">See Our Work</Link>
           </div>
